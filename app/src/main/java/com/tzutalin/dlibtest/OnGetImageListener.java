@@ -36,16 +36,13 @@ import android.os.Trace;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
-
 import com.tzutalin.dlib.Constants;
 import com.tzutalin.dlib.FaceDet;
 import com.tzutalin.dlib.VisionDetRet;
-
-import junit.framework.Assert;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Assert;
 
 /**
  * Class that takes in preview frames and converts the image to Bitmaps to process with dlib lib.
