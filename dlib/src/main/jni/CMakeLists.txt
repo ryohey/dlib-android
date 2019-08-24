@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8.4)
 
 include_directories(miniglog)
+include_directories(OpenCV-android-sdk/sdk/native/jni/include)
 
 add_library(android_dlib SHARED
     dlib/dlib/threads/threads_kernel_shared.cpp
