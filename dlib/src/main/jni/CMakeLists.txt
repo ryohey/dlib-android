@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 2.8.4)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -frtti -fexceptions -ffast-math -D_GLIBCXX_HAS_GTHREADS -D WITH_ITT=OFF -D WITH_IPP=OFF")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -O3")
-
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     miniglog
@@ -29,12 +25,7 @@ add_library(android_dlib SHARED
 
 add_library(opencv_java SHARED IMPORTED)
 set_target_properties(opencv_java PROPERTIES IMPORTED_LOCATION 
-    ${CMAKE_SOURCE_DIR}/OpenCV-android-sdk/sdk/native/libs/${ANDROID_ABI}/libopencv_java3.so
-)
-
-add_library(opencv_objdetect SHARED IMPORTED)
-set_target_properties(opencv_objdetect PROPERTIES IMPORTED_LOCATION 
-    ${CMAKE_SOURCE_DIR}/OpenCV-android-sdk/sdk/native/libs/${ANDROID_ABI}/libopencv_objdetect.so
+    ${CMAKE_SOURCE_DIR}/OpenCV-android-sdk/sdk/native/libs/${ANDROID_ABI}/libopencv_java4.so
 )
 
 target_link_libraries(
@@ -44,5 +35,4 @@ target_link_libraries(
     log
     m
     opencv_java
-    opencv_objdetect
 )

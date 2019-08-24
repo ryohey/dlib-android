@@ -106,7 +106,7 @@ JNIEXPORT jobjectArray JNICALL
     DLIB_JNI_METHOD(jniDetect)(JNIEnv* env, jobject thiz, jstring jImgPath) {
   LOG(INFO) << "jniPeopleDet";
   std::string path = jniutils::convertJStrToString(env, jImgPath);
-  cv::Mat src_img = cv::imread(path, CV_LOAD_IMAGE_COLOR);
+  cv::Mat src_img = cv::imread(path, cv::ImreadModes::IMREAD_COLOR);
   DetectorPtr detPtr = getDetectorPtr(env, thiz);
   int size = detPtr->det(src_img);
   LOG(INFO) << "jniPeopleDet size: " << size;

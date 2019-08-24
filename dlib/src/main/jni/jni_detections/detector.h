@@ -19,10 +19,10 @@
 #include "../miniglog/glog/logging.h"
 #include <jni.h>
 #include <memory>
-#include <OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/core.hpp>
-#include <OpenCV-android-sdk/sdk/native/jni/include/opencv2/imgproc/imgproc.hpp>
-#include <OpenCV-android-sdk/sdk/native/jni/include/opencv2/highgui.hpp>
-#include <OpenCV-android-sdk/sdk/native/jni/include/opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/opencv.hpp>
 #include <stdio.h>
 #include <string>
 #include <vector>
@@ -101,7 +101,7 @@ class DLibHOGDetector {
       LOG(WARNING) << "No modle path or input file path";
       return 0;
     }
-    cv::Mat src_img = cv::imread(path, CV_LOAD_IMAGE_COLOR);
+    cv::Mat src_img = cv::imread(path, cv::ImreadModes::IMREAD_COLOR);
     if (src_img.empty())
       return 0;
     int img_width = src_img.cols;
@@ -169,7 +169,7 @@ class DLibHOGFaceDetector : public DLibHOGDetector {
 
   virtual inline int det(const std::string& path) {
     LOG(INFO) << "Read path from " << path;
-    cv::Mat src_img = cv::imread(path, CV_LOAD_IMAGE_COLOR);
+    cv::Mat src_img = cv::imread(path, cv::ImreadModes::IMREAD_COLOR);
     return det(src_img);
   }
 
@@ -181,7 +181,7 @@ class DLibHOGFaceDetector : public DLibHOGDetector {
       return 0;
     LOG(INFO) << "com_tzutalin_dlib_PeopleDet go to det(mat)";
     if (image.channels() == 1) {
-      cv::cvtColor(image, image, CV_GRAY2BGR);
+      cv::cvtColor(image, image, cv::ColorConversionCodes::COLOR_GRAY2BGR);
     }
     CHECK(image.channels() == 3);
     // TODO : Convert to gray image to speed up detection
