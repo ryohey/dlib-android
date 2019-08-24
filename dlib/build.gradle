@@ -12,6 +12,12 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "${rootProject.ext.releaseVersionName}"
+
+        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_STL=c++_static"
+            }
+        }
     }
 
     buildTypes {
