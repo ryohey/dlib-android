@@ -11,7 +11,7 @@
 #include <jni_common/jni_primitives.h>
 #include <jni_common/jni_fileutils.h>
 #include <jni_common/jni_utils.h>
-#include <detector.h>
+#include "detector.h"
 #include <jni.h>
 
 
