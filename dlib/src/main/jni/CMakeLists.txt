@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 2.8.4)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -frtti -fexceptions -ffast-math -D_GLIBCXX_HAS_GTHREADS")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -O3")
+
 include_directories(miniglog)
 include_directories(OpenCV-android-sdk/sdk/native/jni/include)
 
