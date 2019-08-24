@@ -17,7 +17,7 @@ OPENCV_MK_DIR:=$(dir $(lastword $(MAKEFILE_LIST)))
 OPENCV_3RDPARTY_LIBS_DIR:=$(OPENCV_THIS_DIR)/../3rdparty/libs/$(OPENCV_TARGET_ARCH_ABI)
 OPENCV_BASEDIR:=
 OPENCV_LOCAL_C_INCLUDES:="$(LOCAL_PATH)/$(OPENCV_THIS_DIR)/include/opencv" "$(LOCAL_PATH)/$(OPENCV_THIS_DIR)/include"
-OPENCV_MODULES:=objdetect calib3d features2d video videoio imgcodecs imgproc core
+OPENCV_MODULES:=shape highgui videostab ml dnn photo superres videoio imgcodecs video stitching objdetect calib3d features2d imgproc flann core
 OPENCV_SUB_MK:=$(call my-dir)/OpenCV-$(TARGET_ARCH_ABI).mk
 
 ifeq ($(OPENCV_LIB_TYPE),)
@@ -25,11 +25,11 @@ ifeq ($(OPENCV_LIB_TYPE),)
 endif
 
 ifeq ($(OPENCV_LIB_TYPE),SHARED)
-    OPENCV_LIBS:=objdetect calib3d features2d video videoio imgcodecs imgproc core
+    OPENCV_LIBS:=java3
     OPENCV_LIB_TYPE:=SHARED
 else
     OPENCV_LIBS:=$(OPENCV_MODULES)
-    OPENCV_LIB_TYPE:=SHARED
+    OPENCV_LIB_TYPE:=STATIC
 endif
 
 ifeq ($(OPENCV_LIB_TYPE),SHARED)
