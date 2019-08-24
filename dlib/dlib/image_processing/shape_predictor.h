@@ -402,7 +402,7 @@ namespace dlib
 
         friend void deserialize (shape_predictor& item, std::istream& in);
 
-    private:
+    public:
         matrix<float,0,1> initial_shape;
         std::vector<std::vector<impl::regression_tree> > forests;
         std::vector<std::vector<unsigned long> > anchor_idx; 
