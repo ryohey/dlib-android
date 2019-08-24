@@ -65,6 +65,19 @@ public class Imgproc {
             CV_THRESH_TRIANGLE = 16;
 
 
+    // C++: enum HersheyFonts
+    public static final int
+            FONT_HERSHEY_SIMPLEX = 0,
+            FONT_HERSHEY_PLAIN = 1,
+            FONT_HERSHEY_DUPLEX = 2,
+            FONT_HERSHEY_COMPLEX = 3,
+            FONT_HERSHEY_TRIPLEX = 4,
+            FONT_HERSHEY_COMPLEX_SMALL = 5,
+            FONT_HERSHEY_SCRIPT_SIMPLEX = 6,
+            FONT_HERSHEY_SCRIPT_COMPLEX = 7,
+            FONT_ITALIC = 16;
+
+
     // C++: enum InterpolationMasks
     public static final int
             INTER_BITS = 5,
@@ -106,12 +119,13 @@ public class Imgproc {
             CCL_GRANA = 1;
 
 
-    // C++: enum GrabCutModes
+    // C++: enum RetrievalModes
     public static final int
-            GC_INIT_WITH_RECT = 0,
-            GC_INIT_WITH_MASK = 1,
-            GC_EVAL = 2,
-            GC_EVAL_FREEZE_MODEL = 3;
+            RETR_EXTERNAL = 0,
+            RETR_LIST = 1,
+            RETR_CCOMP = 2,
+            RETR_TREE = 3,
+            RETR_FLOODFILL = 4;
 
 
     // C++: enum GrabCutClasses
@@ -152,9 +166,17 @@ public class Imgproc {
             HISTCMP_CHISQR = 1,
             HISTCMP_INTERSECT = 2,
             HISTCMP_BHATTACHARYYA = 3,
-            HISTCMP_HELLINGER = 3,
+            HISTCMP_HELLINGER = HISTCMP_BHATTACHARYYA,
             HISTCMP_CHISQR_ALT = 4,
             HISTCMP_KL_DIV = 5;
+
+
+    // C++: enum LineTypes
+    public static final int
+            FILLED = -1,
+            LINE_4 = 4,
+            LINE_8 = 8,
+            LINE_AA = 16;
 
 
     // C++: enum InterpolationFlags
@@ -170,12 +192,68 @@ public class Imgproc {
             WARP_INVERSE_MAP = 16;
 
 
+    // C++: enum SpecialFilter
+    public static final int
+            FILTER_SCHARR = -1;
+
+
     // C++: enum ContourApproximationModes
     public static final int
             CHAIN_APPROX_NONE = 1,
             CHAIN_APPROX_SIMPLE = 2,
             CHAIN_APPROX_TC89_L1 = 3,
             CHAIN_APPROX_TC89_KCOS = 4;
+
+
+    // C++: enum RectanglesIntersectTypes
+    public static final int
+            INTERSECT_NONE = 0,
+            INTERSECT_PARTIAL = 1,
+            INTERSECT_FULL = 2;
+
+
+    // C++: enum <unnamed>
+    public static final int
+            CV_GAUSSIAN_5x5 = 7,
+            CV_SCHARR = -1,
+            CV_MAX_SOBEL_KSIZE = 7,
+            CV_RGBA2mRGBA = 125,
+            CV_mRGBA2RGBA = 126,
+            CV_WARP_FILL_OUTLIERS = 8,
+            CV_WARP_INVERSE_MAP = 16,
+            CV_CHAIN_CODE = 0,
+            CV_LINK_RUNS = 5,
+            CV_POLY_APPROX_DP = 0,
+            CV_CONTOURS_MATCH_I1 = 1,
+            CV_CONTOURS_MATCH_I2 = 2,
+            CV_CONTOURS_MATCH_I3 = 3,
+            CV_CLOCKWISE = 1,
+            CV_COUNTER_CLOCKWISE = 2,
+            CV_COMP_CORREL = 0,
+            CV_COMP_CHISQR = 1,
+            CV_COMP_INTERSECT = 2,
+            CV_COMP_BHATTACHARYYA = 3,
+            CV_COMP_HELLINGER = CV_COMP_BHATTACHARYYA,
+            CV_COMP_CHISQR_ALT = 4,
+            CV_COMP_KL_DIV = 5,
+            CV_DIST_MASK_3 = 3,
+            CV_DIST_MASK_5 = 5,
+            CV_DIST_MASK_PRECISE = 0,
+            CV_DIST_LABEL_CCOMP = 0,
+            CV_DIST_LABEL_PIXEL = 1,
+            CV_DIST_USER = -1,
+            CV_DIST_L1 = 1,
+            CV_DIST_L2 = 2,
+            CV_DIST_C = 3,
+            CV_DIST_L12 = 4,
+            CV_DIST_FAIR = 5,
+            CV_DIST_WELSCH = 6,
+            CV_DIST_HUBER = 7,
+            CV_CANNY_L2_GRADIENT = (1 << 31),
+            CV_HOUGH_STANDARD = 0,
+            CV_HOUGH_PROBABILISTIC = 1,
+            CV_HOUGH_MULTI_SCALE = 2,
+            CV_HOUGH_GRADIENT = 3;
 
 
     // C++: enum ShapeMatchModes
@@ -191,32 +269,26 @@ public class Imgproc {
             WARP_POLAR_LOG = 256;
 
 
-    // C++: enum UndistortTypes
-    public static final int
-            PROJ_SPHERICAL_ORTHO = 0,
-            PROJ_SPHERICAL_EQRECT = 1;
-
-
     // C++: enum ColorConversionCodes
     public static final int
             COLOR_BGR2BGRA = 0,
-            COLOR_RGB2RGBA = 0,
+            COLOR_RGB2RGBA = COLOR_BGR2BGRA,
             COLOR_BGRA2BGR = 1,
-            COLOR_RGBA2RGB = 1,
+            COLOR_RGBA2RGB = COLOR_BGRA2BGR,
             COLOR_BGR2RGBA = 2,
-            COLOR_RGB2BGRA = 2,
+            COLOR_RGB2BGRA = COLOR_BGR2RGBA,
             COLOR_RGBA2BGR = 3,
-            COLOR_BGRA2RGB = 3,
+            COLOR_BGRA2RGB = COLOR_RGBA2BGR,
             COLOR_BGR2RGB = 4,
-            COLOR_RGB2BGR = 4,
+            COLOR_RGB2BGR = COLOR_BGR2RGB,
             COLOR_BGRA2RGBA = 5,
-            COLOR_RGBA2BGRA = 5,
+            COLOR_RGBA2BGRA = COLOR_BGRA2RGBA,
             COLOR_BGR2GRAY = 6,
             COLOR_RGB2GRAY = 7,
             COLOR_GRAY2BGR = 8,
-            COLOR_GRAY2RGB = 8,
+            COLOR_GRAY2RGB = COLOR_GRAY2BGR,
             COLOR_GRAY2BGRA = 9,
-            COLOR_GRAY2RGBA = 9,
+            COLOR_GRAY2RGBA = COLOR_GRAY2BGRA,
             COLOR_BGRA2GRAY = 10,
             COLOR_RGBA2GRAY = 11,
             COLOR_BGR2BGR565 = 12,
@@ -287,83 +359,83 @@ public class Imgproc {
             COLOR_YUV2BGR_NV12 = 91,
             COLOR_YUV2RGB_NV21 = 92,
             COLOR_YUV2BGR_NV21 = 93,
-            COLOR_YUV420sp2RGB = 92,
-            COLOR_YUV420sp2BGR = 93,
+            COLOR_YUV420sp2RGB = COLOR_YUV2RGB_NV21,
+            COLOR_YUV420sp2BGR = COLOR_YUV2BGR_NV21,
             COLOR_YUV2RGBA_NV12 = 94,
             COLOR_YUV2BGRA_NV12 = 95,
             COLOR_YUV2RGBA_NV21 = 96,
             COLOR_YUV2BGRA_NV21 = 97,
-            COLOR_YUV420sp2RGBA = 96,
-            COLOR_YUV420sp2BGRA = 97,
+            COLOR_YUV420sp2RGBA = COLOR_YUV2RGBA_NV21,
+            COLOR_YUV420sp2BGRA = COLOR_YUV2BGRA_NV21,
             COLOR_YUV2RGB_YV12 = 98,
             COLOR_YUV2BGR_YV12 = 99,
             COLOR_YUV2RGB_IYUV = 100,
             COLOR_YUV2BGR_IYUV = 101,
-            COLOR_YUV2RGB_I420 = 100,
-            COLOR_YUV2BGR_I420 = 101,
-            COLOR_YUV420p2RGB = 98,
-            COLOR_YUV420p2BGR = 99,
+            COLOR_YUV2RGB_I420 = COLOR_YUV2RGB_IYUV,
+            COLOR_YUV2BGR_I420 = COLOR_YUV2BGR_IYUV,
+            COLOR_YUV420p2RGB = COLOR_YUV2RGB_YV12,
+            COLOR_YUV420p2BGR = COLOR_YUV2BGR_YV12,
             COLOR_YUV2RGBA_YV12 = 102,
             COLOR_YUV2BGRA_YV12 = 103,
             COLOR_YUV2RGBA_IYUV = 104,
             COLOR_YUV2BGRA_IYUV = 105,
-            COLOR_YUV2RGBA_I420 = 104,
-            COLOR_YUV2BGRA_I420 = 105,
-            COLOR_YUV420p2RGBA = 102,
-            COLOR_YUV420p2BGRA = 103,
+            COLOR_YUV2RGBA_I420 = COLOR_YUV2RGBA_IYUV,
+            COLOR_YUV2BGRA_I420 = COLOR_YUV2BGRA_IYUV,
+            COLOR_YUV420p2RGBA = COLOR_YUV2RGBA_YV12,
+            COLOR_YUV420p2BGRA = COLOR_YUV2BGRA_YV12,
             COLOR_YUV2GRAY_420 = 106,
-            COLOR_YUV2GRAY_NV21 = 106,
-            COLOR_YUV2GRAY_NV12 = 106,
-            COLOR_YUV2GRAY_YV12 = 106,
-            COLOR_YUV2GRAY_IYUV = 106,
-            COLOR_YUV2GRAY_I420 = 106,
-            COLOR_YUV420sp2GRAY = 106,
-            COLOR_YUV420p2GRAY = 106,
+            COLOR_YUV2GRAY_NV21 = COLOR_YUV2GRAY_420,
+            COLOR_YUV2GRAY_NV12 = COLOR_YUV2GRAY_420,
+            COLOR_YUV2GRAY_YV12 = COLOR_YUV2GRAY_420,
+            COLOR_YUV2GRAY_IYUV = COLOR_YUV2GRAY_420,
+            COLOR_YUV2GRAY_I420 = COLOR_YUV2GRAY_420,
+            COLOR_YUV420sp2GRAY = COLOR_YUV2GRAY_420,
+            COLOR_YUV420p2GRAY = COLOR_YUV2GRAY_420,
             COLOR_YUV2RGB_UYVY = 107,
             COLOR_YUV2BGR_UYVY = 108,
-            COLOR_YUV2RGB_Y422 = 107,
-            COLOR_YUV2BGR_Y422 = 108,
-            COLOR_YUV2RGB_UYNV = 107,
-            COLOR_YUV2BGR_UYNV = 108,
+            COLOR_YUV2RGB_Y422 = COLOR_YUV2RGB_UYVY,
+            COLOR_YUV2BGR_Y422 = COLOR_YUV2BGR_UYVY,
+            COLOR_YUV2RGB_UYNV = COLOR_YUV2RGB_UYVY,
+            COLOR_YUV2BGR_UYNV = COLOR_YUV2BGR_UYVY,
             COLOR_YUV2RGBA_UYVY = 111,
             COLOR_YUV2BGRA_UYVY = 112,
-            COLOR_YUV2RGBA_Y422 = 111,
-            COLOR_YUV2BGRA_Y422 = 112,
-            COLOR_YUV2RGBA_UYNV = 111,
-            COLOR_YUV2BGRA_UYNV = 112,
+            COLOR_YUV2RGBA_Y422 = COLOR_YUV2RGBA_UYVY,
+            COLOR_YUV2BGRA_Y422 = COLOR_YUV2BGRA_UYVY,
+            COLOR_YUV2RGBA_UYNV = COLOR_YUV2RGBA_UYVY,
+            COLOR_YUV2BGRA_UYNV = COLOR_YUV2BGRA_UYVY,
             COLOR_YUV2RGB_YUY2 = 115,
             COLOR_YUV2BGR_YUY2 = 116,
             COLOR_YUV2RGB_YVYU = 117,
             COLOR_YUV2BGR_YVYU = 118,
-            COLOR_YUV2RGB_YUYV = 115,
-            COLOR_YUV2BGR_YUYV = 116,
-            COLOR_YUV2RGB_YUNV = 115,
-            COLOR_YUV2BGR_YUNV = 116,
+            COLOR_YUV2RGB_YUYV = COLOR_YUV2RGB_YUY2,
+            COLOR_YUV2BGR_YUYV = COLOR_YUV2BGR_YUY2,
+            COLOR_YUV2RGB_YUNV = COLOR_YUV2RGB_YUY2,
+            COLOR_YUV2BGR_YUNV = COLOR_YUV2BGR_YUY2,
             COLOR_YUV2RGBA_YUY2 = 119,
             COLOR_YUV2BGRA_YUY2 = 120,
             COLOR_YUV2RGBA_YVYU = 121,
             COLOR_YUV2BGRA_YVYU = 122,
-            COLOR_YUV2RGBA_YUYV = 119,
-            COLOR_YUV2BGRA_YUYV = 120,
-            COLOR_YUV2RGBA_YUNV = 119,
-            COLOR_YUV2BGRA_YUNV = 120,
+            COLOR_YUV2RGBA_YUYV = COLOR_YUV2RGBA_YUY2,
+            COLOR_YUV2BGRA_YUYV = COLOR_YUV2BGRA_YUY2,
+            COLOR_YUV2RGBA_YUNV = COLOR_YUV2RGBA_YUY2,
+            COLOR_YUV2BGRA_YUNV = COLOR_YUV2BGRA_YUY2,
             COLOR_YUV2GRAY_UYVY = 123,
             COLOR_YUV2GRAY_YUY2 = 124,
-            COLOR_YUV2GRAY_Y422 = 123,
-            COLOR_YUV2GRAY_UYNV = 123,
-            COLOR_YUV2GRAY_YVYU = 124,
-            COLOR_YUV2GRAY_YUYV = 124,
-            COLOR_YUV2GRAY_YUNV = 124,
+            COLOR_YUV2GRAY_Y422 = COLOR_YUV2GRAY_UYVY,
+            COLOR_YUV2GRAY_UYNV = COLOR_YUV2GRAY_UYVY,
+            COLOR_YUV2GRAY_YVYU = COLOR_YUV2GRAY_YUY2,
+            COLOR_YUV2GRAY_YUYV = COLOR_YUV2GRAY_YUY2,
+            COLOR_YUV2GRAY_YUNV = COLOR_YUV2GRAY_YUY2,
             COLOR_RGBA2mRGBA = 125,
             COLOR_mRGBA2RGBA = 126,
             COLOR_RGB2YUV_I420 = 127,
             COLOR_BGR2YUV_I420 = 128,
-            COLOR_RGB2YUV_IYUV = 127,
-            COLOR_BGR2YUV_IYUV = 128,
+            COLOR_RGB2YUV_IYUV = COLOR_RGB2YUV_I420,
+            COLOR_BGR2YUV_IYUV = COLOR_BGR2YUV_I420,
             COLOR_RGBA2YUV_I420 = 129,
             COLOR_BGRA2YUV_I420 = 130,
-            COLOR_RGBA2YUV_IYUV = 129,
-            COLOR_BGRA2YUV_IYUV = 130,
+            COLOR_RGBA2YUV_IYUV = COLOR_RGBA2YUV_I420,
+            COLOR_BGRA2YUV_IYUV = COLOR_BGRA2YUV_I420,
             COLOR_RGB2YUV_YV12 = 131,
             COLOR_BGR2YUV_YV12 = 132,
             COLOR_RGBA2YUV_YV12 = 133,
@@ -372,10 +444,10 @@ public class Imgproc {
             COLOR_BayerGB2BGR = 47,
             COLOR_BayerRG2BGR = 48,
             COLOR_BayerGR2BGR = 49,
-            COLOR_BayerBG2RGB = 48,
-            COLOR_BayerGB2RGB = 49,
-            COLOR_BayerRG2RGB = 46,
-            COLOR_BayerGR2RGB = 47,
+            COLOR_BayerBG2RGB = COLOR_BayerRG2BGR,
+            COLOR_BayerGB2RGB = COLOR_BayerGR2BGR,
+            COLOR_BayerRG2RGB = COLOR_BayerBG2BGR,
+            COLOR_BayerGR2RGB = COLOR_BayerGB2BGR,
             COLOR_BayerBG2GRAY = 86,
             COLOR_BayerGB2GRAY = 87,
             COLOR_BayerRG2GRAY = 88,
@@ -384,81 +456,34 @@ public class Imgproc {
             COLOR_BayerGB2BGR_VNG = 63,
             COLOR_BayerRG2BGR_VNG = 64,
             COLOR_BayerGR2BGR_VNG = 65,
-            COLOR_BayerBG2RGB_VNG = 64,
-            COLOR_BayerGB2RGB_VNG = 65,
-            COLOR_BayerRG2RGB_VNG = 62,
-            COLOR_BayerGR2RGB_VNG = 63,
+            COLOR_BayerBG2RGB_VNG = COLOR_BayerRG2BGR_VNG,
+            COLOR_BayerGB2RGB_VNG = COLOR_BayerGR2BGR_VNG,
+            COLOR_BayerRG2RGB_VNG = COLOR_BayerBG2BGR_VNG,
+            COLOR_BayerGR2RGB_VNG = COLOR_BayerGB2BGR_VNG,
             COLOR_BayerBG2BGR_EA = 135,
             COLOR_BayerGB2BGR_EA = 136,
             COLOR_BayerRG2BGR_EA = 137,
             COLOR_BayerGR2BGR_EA = 138,
-            COLOR_BayerBG2RGB_EA = 137,
-            COLOR_BayerGB2RGB_EA = 138,
-            COLOR_BayerRG2RGB_EA = 135,
-            COLOR_BayerGR2RGB_EA = 136,
+            COLOR_BayerBG2RGB_EA = COLOR_BayerRG2BGR_EA,
+            COLOR_BayerGB2RGB_EA = COLOR_BayerGR2BGR_EA,
+            COLOR_BayerRG2RGB_EA = COLOR_BayerBG2BGR_EA,
+            COLOR_BayerGR2RGB_EA = COLOR_BayerGB2BGR_EA,
             COLOR_BayerBG2BGRA = 139,
             COLOR_BayerGB2BGRA = 140,
             COLOR_BayerRG2BGRA = 141,
             COLOR_BayerGR2BGRA = 142,
-            COLOR_BayerBG2RGBA = 141,
-            COLOR_BayerGB2RGBA = 142,
-            COLOR_BayerRG2RGBA = 139,
-            COLOR_BayerGR2RGBA = 140,
+            COLOR_BayerBG2RGBA = COLOR_BayerRG2BGRA,
+            COLOR_BayerGB2RGBA = COLOR_BayerGR2BGRA,
+            COLOR_BayerRG2RGBA = COLOR_BayerBG2BGRA,
+            COLOR_BayerGR2RGBA = COLOR_BayerGB2BGRA,
             COLOR_COLORCVT_MAX = 143;
 
 
-    // C++: enum RectanglesIntersectTypes
+    // C++: enum LineSegmentDetectorModes
     public static final int
-            INTERSECT_NONE = 0,
-            INTERSECT_PARTIAL = 1,
-            INTERSECT_FULL = 2;
-
-
-    // C++: enum <unnamed>
-    public static final int
-            LINE_AA = 16,
-            LINE_8 = 8,
-            LINE_4 = 4,
-            CV_GAUSSIAN_5x5 = 7,
-            CV_SCHARR = -1,
-            CV_MAX_SOBEL_KSIZE = 7,
-            CV_RGBA2mRGBA = 125,
-            CV_mRGBA2RGBA = 126,
-            CV_WARP_FILL_OUTLIERS = 8,
-            CV_WARP_INVERSE_MAP = 16,
-            CV_CHAIN_CODE = 0,
-            CV_LINK_RUNS = 5,
-            CV_POLY_APPROX_DP = 0,
-            CV_CONTOURS_MATCH_I1 = 1,
-            CV_CONTOURS_MATCH_I2 = 2,
-            CV_CONTOURS_MATCH_I3 = 3,
-            CV_CLOCKWISE = 1,
-            CV_COUNTER_CLOCKWISE = 2,
-            CV_COMP_CORREL = 0,
-            CV_COMP_CHISQR = 1,
-            CV_COMP_INTERSECT = 2,
-            CV_COMP_BHATTACHARYYA = 3,
-            CV_COMP_HELLINGER = 3,
-            CV_COMP_CHISQR_ALT = 4,
-            CV_COMP_KL_DIV = 5,
-            CV_DIST_MASK_3 = 3,
-            CV_DIST_MASK_5 = 5,
-            CV_DIST_MASK_PRECISE = 0,
-            CV_DIST_LABEL_CCOMP = 0,
-            CV_DIST_LABEL_PIXEL = 1,
-            CV_DIST_USER = -1,
-            CV_DIST_L1 = 1,
-            CV_DIST_L2 = 2,
-            CV_DIST_C = 3,
-            CV_DIST_L12 = 4,
-            CV_DIST_FAIR = 5,
-            CV_DIST_WELSCH = 6,
-            CV_DIST_HUBER = 7,
-            CV_CANNY_L2_GRADIENT = (1 << 31),
-            CV_HOUGH_STANDARD = 0,
-            CV_HOUGH_PROBABILISTIC = 1,
-            CV_HOUGH_MULTI_SCALE = 2,
-            CV_HOUGH_GRADIENT = 3;
+            LSD_REFINE_NONE = 0,
+            LSD_REFINE_STD = 1,
+            LSD_REFINE_ADV = 2;
 
 
     // C++: enum ThresholdTypes
@@ -487,13 +512,12 @@ public class Imgproc {
             CV_SHAPE_CUSTOM = 100;
 
 
-    // C++: enum RetrievalModes
+    // C++: enum GrabCutModes
     public static final int
-            RETR_EXTERNAL = 0,
-            RETR_LIST = 1,
-            RETR_CCOMP = 2,
-            RETR_TREE = 3,
-            RETR_FLOODFILL = 4;
+            GC_INIT_WITH_RECT = 0,
+            GC_INIT_WITH_MASK = 1,
+            GC_EVAL = 2,
+            GC_EVAL_FREEZE_MODEL = 3;
 
 
     // C++: enum MorphShapes
@@ -519,13 +543,6 @@ public class Imgproc {
             DIST_FAIR = 5,
             DIST_WELSCH = 6,
             DIST_HUBER = 7;
-
-
-    // C++: enum LineSegmentDetectorModes
-    public static final int
-            LSD_REFINE_NONE = 0,
-            LSD_REFINE_STD = 1,
-            LSD_REFINE_ADV = 2;
 
 
     // C++: enum TemplateMatchModes
@@ -583,92 +600,6 @@ public class Imgproc {
         Mat src_mat = src;
         Mat dst_mat = dst;
         return new Mat(getAffineTransform_0(src_mat.nativeObj, dst_mat.nativeObj));
-    }
-
-
-    //
-    // C++:  Mat cv::getDefaultNewCameraMatrix(Mat cameraMatrix, Size imgsize = Size(), bool centerPrincipalPoint = false)
-    //
-
-    /**
-     * Returns the default new camera matrix.
-     *
-     * The function returns the camera matrix that is either an exact copy of the input cameraMatrix (when
-     * centerPrinicipalPoint=false ), or the modified one (when centerPrincipalPoint=true).
-     *
-     * In the latter case, the new camera matrix will be:
-     *
-     * \(\begin{bmatrix} f_x &amp;&amp; 0 &amp;&amp; ( \texttt{imgSize.width} -1)*0.5  \\ 0 &amp;&amp; f_y &amp;&amp; ( \texttt{imgSize.height} -1)*0.5  \\ 0 &amp;&amp; 0 &amp;&amp; 1 \end{bmatrix} ,\)
-     *
-     * where \(f_x\) and \(f_y\) are \((0,0)\) and \((1,1)\) elements of cameraMatrix, respectively.
-     *
-     * By default, the undistortion functions in OpenCV (see #initUndistortRectifyMap, #undistort) do not
-     * move the principal point. However, when you work with stereo, it is important to move the principal
-     * points in both views to the same y-coordinate (which is required by most of stereo correspondence
-     * algorithms), and may be to the same x-coordinate too. So, you can form the new camera matrix for
-     * each view where the principal points are located at the center.
-     *
-     * @param cameraMatrix Input camera matrix.
-     * @param imgsize Camera view image size in pixels.
-     * @param centerPrincipalPoint Location of the principal point in the new camera matrix. The
-     * parameter indicates whether this location should be at the image center or not.
-     * @return automatically generated
-     */
-    public static Mat getDefaultNewCameraMatrix(Mat cameraMatrix, Size imgsize, boolean centerPrincipalPoint) {
-        return new Mat(getDefaultNewCameraMatrix_0(cameraMatrix.nativeObj, imgsize.width, imgsize.height, centerPrincipalPoint));
-    }
-
-    /**
-     * Returns the default new camera matrix.
-     *
-     * The function returns the camera matrix that is either an exact copy of the input cameraMatrix (when
-     * centerPrinicipalPoint=false ), or the modified one (when centerPrincipalPoint=true).
-     *
-     * In the latter case, the new camera matrix will be:
-     *
-     * \(\begin{bmatrix} f_x &amp;&amp; 0 &amp;&amp; ( \texttt{imgSize.width} -1)*0.5  \\ 0 &amp;&amp; f_y &amp;&amp; ( \texttt{imgSize.height} -1)*0.5  \\ 0 &amp;&amp; 0 &amp;&amp; 1 \end{bmatrix} ,\)
-     *
-     * where \(f_x\) and \(f_y\) are \((0,0)\) and \((1,1)\) elements of cameraMatrix, respectively.
-     *
-     * By default, the undistortion functions in OpenCV (see #initUndistortRectifyMap, #undistort) do not
-     * move the principal point. However, when you work with stereo, it is important to move the principal
-     * points in both views to the same y-coordinate (which is required by most of stereo correspondence
-     * algorithms), and may be to the same x-coordinate too. So, you can form the new camera matrix for
-     * each view where the principal points are located at the center.
-     *
-     * @param cameraMatrix Input camera matrix.
-     * @param imgsize Camera view image size in pixels.
-     * parameter indicates whether this location should be at the image center or not.
-     * @return automatically generated
-     */
-    public static Mat getDefaultNewCameraMatrix(Mat cameraMatrix, Size imgsize) {
-        return new Mat(getDefaultNewCameraMatrix_1(cameraMatrix.nativeObj, imgsize.width, imgsize.height));
-    }
-
-    /**
-     * Returns the default new camera matrix.
-     *
-     * The function returns the camera matrix that is either an exact copy of the input cameraMatrix (when
-     * centerPrinicipalPoint=false ), or the modified one (when centerPrincipalPoint=true).
-     *
-     * In the latter case, the new camera matrix will be:
-     *
-     * \(\begin{bmatrix} f_x &amp;&amp; 0 &amp;&amp; ( \texttt{imgSize.width} -1)*0.5  \\ 0 &amp;&amp; f_y &amp;&amp; ( \texttt{imgSize.height} -1)*0.5  \\ 0 &amp;&amp; 0 &amp;&amp; 1 \end{bmatrix} ,\)
-     *
-     * where \(f_x\) and \(f_y\) are \((0,0)\) and \((1,1)\) elements of cameraMatrix, respectively.
-     *
-     * By default, the undistortion functions in OpenCV (see #initUndistortRectifyMap, #undistort) do not
-     * move the principal point. However, when you work with stereo, it is important to move the principal
-     * points in both views to the same y-coordinate (which is required by most of stereo correspondence
-     * algorithms), and may be to the same x-coordinate too. So, you can form the new camera matrix for
-     * each view where the principal points are located at the center.
-     *
-     * @param cameraMatrix Input camera matrix.
-     * parameter indicates whether this location should be at the image center or not.
-     * @return automatically generated
-     */
-    public static Mat getDefaultNewCameraMatrix(Mat cameraMatrix) {
-        return new Mat(getDefaultNewCameraMatrix_2(cameraMatrix.nativeObj));
     }
 
 
@@ -784,8 +715,30 @@ public class Imgproc {
 
 
     //
-    // C++:  Mat cv::getPerspectiveTransform(Mat src, Mat dst)
+    // C++:  Mat cv::getPerspectiveTransform(Mat src, Mat dst, int solveMethod = DECOMP_LU)
     //
+
+    /**
+     * Calculates a perspective transform from four pairs of the corresponding points.
+     *
+     * The function calculates the \(3 \times 3\) matrix of a perspective transform so that:
+     *
+     * \(\begin{bmatrix} t_i x'_i \\ t_i y'_i \\ t_i \end{bmatrix} = \texttt{map_matrix} \cdot \begin{bmatrix} x_i \\ y_i \\ 1 \end{bmatrix}\)
+     *
+     * where
+     *
+     * \(dst(i)=(x'_i,y'_i), src(i)=(x_i, y_i), i=0,1,2,3\)
+     *
+     * @param src Coordinates of quadrangle vertices in the source image.
+     * @param dst Coordinates of the corresponding quadrangle vertices in the destination image.
+     * @param solveMethod method passed to cv::solve (#DecompTypes)
+     *
+     * SEE:  findHomography, warpPerspective, perspectiveTransform
+     * @return automatically generated
+     */
+    public static Mat getPerspectiveTransform(Mat src, Mat dst, int solveMethod) {
+        return new Mat(getPerspectiveTransform_0(src.nativeObj, dst.nativeObj, solveMethod));
+    }
 
     /**
      * Calculates a perspective transform from four pairs of the corresponding points.
@@ -805,7 +758,7 @@ public class Imgproc {
      * @return automatically generated
      */
     public static Mat getPerspectiveTransform(Mat src, Mat dst) {
-        return new Mat(getPerspectiveTransform_0(src.nativeObj, dst.nativeObj));
+        return new Mat(getPerspectiveTransform_1(src.nativeObj, dst.nativeObj));
     }
 
 
@@ -1795,23 +1748,6 @@ public class Imgproc {
      */
     public static double threshold(Mat src, Mat dst, double thresh, double maxval, int type) {
         return threshold_0(src.nativeObj, dst.nativeObj, thresh, maxval, type);
-    }
-
-
-    //
-    // C++:  float cv::initWideAngleProjMap(Mat cameraMatrix, Mat distCoeffs, Size imageSize, int destImageWidth, int m1type, Mat& map1, Mat& map2, int projType = PROJ_SPHERICAL_EQRECT, double alpha = 0)
-    //
-
-    public static float initWideAngleProjMap(Mat cameraMatrix, Mat distCoeffs, Size imageSize, int destImageWidth, int m1type, Mat map1, Mat map2, int projType, double alpha) {
-        return initWideAngleProjMap_0(cameraMatrix.nativeObj, distCoeffs.nativeObj, imageSize.width, imageSize.height, destImageWidth, m1type, map1.nativeObj, map2.nativeObj, projType, alpha);
-    }
-
-    public static float initWideAngleProjMap(Mat cameraMatrix, Mat distCoeffs, Size imageSize, int destImageWidth, int m1type, Mat map1, Mat map2, int projType) {
-        return initWideAngleProjMap_1(cameraMatrix.nativeObj, distCoeffs.nativeObj, imageSize.width, imageSize.height, destImageWidth, m1type, map1.nativeObj, map2.nativeObj, projType);
-    }
-
-    public static float initWideAngleProjMap(Mat cameraMatrix, Mat distCoeffs, Size imageSize, int destImageWidth, int m1type, Mat map1, Mat map2) {
-        return initWideAngleProjMap_2(cameraMatrix.nativeObj, distCoeffs.nativeObj, imageSize.width, imageSize.height, destImageWidth, m1type, map1.nativeObj, map2.nativeObj);
     }
 
 
@@ -3442,7 +3378,7 @@ public class Imgproc {
      *
      * is equivalent to
      *
-     * \(\texttt{Sobel(src, dst, ddepth, dx, dy, CV_SCHARR, scale, delta, borderType)} .\)
+     * \(\texttt{Sobel(src, dst, ddepth, dx, dy, FILTER_SCHARR, scale, delta, borderType)} .\)
      *
      * @param src input image.
      * @param dst output image of the same size and the same number of channels as src.
@@ -3469,7 +3405,7 @@ public class Imgproc {
      *
      * is equivalent to
      *
-     * \(\texttt{Sobel(src, dst, ddepth, dx, dy, CV_SCHARR, scale, delta, borderType)} .\)
+     * \(\texttt{Sobel(src, dst, ddepth, dx, dy, FILTER_SCHARR, scale, delta, borderType)} .\)
      *
      * @param src input image.
      * @param dst output image of the same size and the same number of channels as src.
@@ -3495,7 +3431,7 @@ public class Imgproc {
      *
      * is equivalent to
      *
-     * \(\texttt{Sobel(src, dst, ddepth, dx, dy, CV_SCHARR, scale, delta, borderType)} .\)
+     * \(\texttt{Sobel(src, dst, ddepth, dx, dy, FILTER_SCHARR, scale, delta, borderType)} .\)
      *
      * @param src input image.
      * @param dst output image of the same size and the same number of channels as src.
@@ -3520,7 +3456,7 @@ public class Imgproc {
      *
      * is equivalent to
      *
-     * \(\texttt{Sobel(src, dst, ddepth, dx, dy, CV_SCHARR, scale, delta, borderType)} .\)
+     * \(\texttt{Sobel(src, dst, ddepth, dx, dy, FILTER_SCHARR, scale, delta, borderType)} .\)
      *
      * @param src input image.
      * @param dst output image of the same size and the same number of channels as src.
@@ -3547,7 +3483,7 @@ public class Imgproc {
      * kernel is used (that is, no Gaussian smoothing is done). {@code ksize = 1} can only be used for the first
      * or the second x- or y- derivatives.
      *
-     * There is also the special value {@code ksize = #CV_SCHARR (-1)} that corresponds to the \(3\times3\) Scharr
+     * There is also the special value {@code ksize = #FILTER_SCHARR (-1)} that corresponds to the \(3\times3\) Scharr
      * filter that may give more accurate results than the \(3\times3\) Sobel. The Scharr aperture is
      *
      * \(\vecthreethree{-3}{0}{3}{-10}{0}{10}{-3}{0}{3}\)
@@ -3594,7 +3530,7 @@ public class Imgproc {
      * kernel is used (that is, no Gaussian smoothing is done). {@code ksize = 1} can only be used for the first
      * or the second x- or y- derivatives.
      *
-     * There is also the special value {@code ksize = #CV_SCHARR (-1)} that corresponds to the \(3\times3\) Scharr
+     * There is also the special value {@code ksize = #FILTER_SCHARR (-1)} that corresponds to the \(3\times3\) Scharr
      * filter that may give more accurate results than the \(3\times3\) Sobel. The Scharr aperture is
      *
      * \(\vecthreethree{-3}{0}{3}{-10}{0}{10}{-3}{0}{3}\)
@@ -3640,7 +3576,7 @@ public class Imgproc {
      * kernel is used (that is, no Gaussian smoothing is done). {@code ksize = 1} can only be used for the first
      * or the second x- or y- derivatives.
      *
-     * There is also the special value {@code ksize = #CV_SCHARR (-1)} that corresponds to the \(3\times3\) Scharr
+     * There is also the special value {@code ksize = #FILTER_SCHARR (-1)} that corresponds to the \(3\times3\) Scharr
      * filter that may give more accurate results than the \(3\times3\) Sobel. The Scharr aperture is
      *
      * \(\vecthreethree{-3}{0}{3}{-10}{0}{10}{-3}{0}{3}\)
@@ -3685,7 +3621,7 @@ public class Imgproc {
      * kernel is used (that is, no Gaussian smoothing is done). {@code ksize = 1} can only be used for the first
      * or the second x- or y- derivatives.
      *
-     * There is also the special value {@code ksize = #CV_SCHARR (-1)} that corresponds to the \(3\times3\) Scharr
+     * There is also the special value {@code ksize = #FILTER_SCHARR (-1)} that corresponds to the \(3\times3\) Scharr
      * filter that may give more accurate results than the \(3\times3\) Sobel. The Scharr aperture is
      *
      * \(\vecthreethree{-3}{0}{3}{-10}{0}{10}{-3}{0}{3}\)
@@ -3729,7 +3665,7 @@ public class Imgproc {
      * kernel is used (that is, no Gaussian smoothing is done). {@code ksize = 1} can only be used for the first
      * or the second x- or y- derivatives.
      *
-     * There is also the special value {@code ksize = #CV_SCHARR (-1)} that corresponds to the \(3\times3\) Scharr
+     * There is also the special value {@code ksize = #FILTER_SCHARR (-1)} that corresponds to the \(3\times3\) Scharr
      * filter that may give more accurate results than the \(3\times3\) Sobel. The Scharr aperture is
      *
      * \(\vecthreethree{-3}{0}{3}{-10}{0}{10}{-3}{0}{3}\)
@@ -6463,7 +6399,7 @@ public class Imgproc {
 
 
     //
-    // C++:  void cv::findContours(Mat& image, vector_vector_Point& contours, Mat& hierarchy, int mode, int method, Point offset = Point())
+    // C++:  void cv::findContours(Mat image, vector_vector_Point& contours, Mat& hierarchy, int mode, int method, Point offset = Point())
     //
 
     /**
@@ -6598,14 +6534,14 @@ public class Imgproc {
      * Returns filter coefficients for computing spatial image derivatives.
      *
      * The function computes and returns the filter coefficients for spatial image derivatives. When
-     * {@code ksize=CV_SCHARR}, the Scharr \(3 \times 3\) kernels are generated (see #Scharr). Otherwise, Sobel
+     * {@code ksize=FILTER_SCHARR}, the Scharr \(3 \times 3\) kernels are generated (see #Scharr). Otherwise, Sobel
      * kernels are generated (see #Sobel). The filters are normally passed to #sepFilter2D or to
      *
      * @param kx Output matrix of row filter coefficients. It has the type ktype .
      * @param ky Output matrix of column filter coefficients. It has the type ktype .
      * @param dx Derivative order in respect of x.
      * @param dy Derivative order in respect of y.
-     * @param ksize Aperture size. It can be CV_SCHARR, 1, 3, 5, or 7.
+     * @param ksize Aperture size. It can be FILTER_SCHARR, 1, 3, 5, or 7.
      * @param normalize Flag indicating whether to normalize (scale down) the filter coefficients or not.
      * Theoretically, the coefficients should have the denominator \(=2^{ksize*2-dx-dy-2}\). If you are
      * going to filter floating-point images, you are likely to use the normalized kernels. But if you
@@ -6621,14 +6557,14 @@ public class Imgproc {
      * Returns filter coefficients for computing spatial image derivatives.
      *
      * The function computes and returns the filter coefficients for spatial image derivatives. When
-     * {@code ksize=CV_SCHARR}, the Scharr \(3 \times 3\) kernels are generated (see #Scharr). Otherwise, Sobel
+     * {@code ksize=FILTER_SCHARR}, the Scharr \(3 \times 3\) kernels are generated (see #Scharr). Otherwise, Sobel
      * kernels are generated (see #Sobel). The filters are normally passed to #sepFilter2D or to
      *
      * @param kx Output matrix of row filter coefficients. It has the type ktype .
      * @param ky Output matrix of column filter coefficients. It has the type ktype .
      * @param dx Derivative order in respect of x.
      * @param dy Derivative order in respect of y.
-     * @param ksize Aperture size. It can be CV_SCHARR, 1, 3, 5, or 7.
+     * @param ksize Aperture size. It can be FILTER_SCHARR, 1, 3, 5, or 7.
      * @param normalize Flag indicating whether to normalize (scale down) the filter coefficients or not.
      * Theoretically, the coefficients should have the denominator \(=2^{ksize*2-dx-dy-2}\). If you are
      * going to filter floating-point images, you are likely to use the normalized kernels. But if you
@@ -6643,14 +6579,14 @@ public class Imgproc {
      * Returns filter coefficients for computing spatial image derivatives.
      *
      * The function computes and returns the filter coefficients for spatial image derivatives. When
-     * {@code ksize=CV_SCHARR}, the Scharr \(3 \times 3\) kernels are generated (see #Scharr). Otherwise, Sobel
+     * {@code ksize=FILTER_SCHARR}, the Scharr \(3 \times 3\) kernels are generated (see #Scharr). Otherwise, Sobel
      * kernels are generated (see #Sobel). The filters are normally passed to #sepFilter2D or to
      *
      * @param kx Output matrix of row filter coefficients. It has the type ktype .
      * @param ky Output matrix of column filter coefficients. It has the type ktype .
      * @param dx Derivative order in respect of x.
      * @param dy Derivative order in respect of y.
-     * @param ksize Aperture size. It can be CV_SCHARR, 1, 3, 5, or 7.
+     * @param ksize Aperture size. It can be FILTER_SCHARR, 1, 3, 5, or 7.
      * Theoretically, the coefficients should have the denominator \(=2^{ksize*2-dx-dy-2}\). If you are
      * going to filter floating-point images, you are likely to use the normalized kernels. But if you
      * compute derivatives of an 8-bit image, store the results in a 16-bit image, and wish to preserve
@@ -7082,78 +7018,6 @@ public class Imgproc {
      */
     public static void grabCut(Mat img, Mat mask, Rect rect, Mat bgdModel, Mat fgdModel, int iterCount) {
         grabCut_1(img.nativeObj, mask.nativeObj, rect.x, rect.y, rect.width, rect.height, bgdModel.nativeObj, fgdModel.nativeObj, iterCount);
-    }
-
-
-    //
-    // C++:  void cv::initUndistortRectifyMap(Mat cameraMatrix, Mat distCoeffs, Mat R, Mat newCameraMatrix, Size size, int m1type, Mat& map1, Mat& map2)
-    //
-
-    /**
-     * Computes the undistortion and rectification transformation map.
-     *
-     * The function computes the joint undistortion and rectification transformation and represents the
-     * result in the form of maps for remap. The undistorted image looks like original, as if it is
-     * captured with a camera using the camera matrix =newCameraMatrix and zero distortion. In case of a
-     * monocular camera, newCameraMatrix is usually equal to cameraMatrix, or it can be computed by
-     * #getOptimalNewCameraMatrix for a better control over scaling. In case of a stereo camera,
-     * newCameraMatrix is normally set to P1 or P2 computed by #stereoRectify .
-     *
-     * Also, this new camera is oriented differently in the coordinate space, according to R. That, for
-     * example, helps to align two heads of a stereo camera so that the epipolar lines on both images
-     * become horizontal and have the same y- coordinate (in case of a horizontally aligned stereo camera).
-     *
-     * The function actually builds the maps for the inverse mapping algorithm that is used by remap. That
-     * is, for each pixel \((u, v)\) in the destination (corrected and rectified) image, the function
-     * computes the corresponding coordinates in the source image (that is, in the original image from
-     * camera). The following process is applied:
-     * \(
-     * \begin{array}{l}
-     * x  \leftarrow (u - {c'}_x)/{f'}_x  \\
-     * y  \leftarrow (v - {c'}_y)/{f'}_y  \\
-     * {[X\,Y\,W]} ^T  \leftarrow R^{-1}*[x \, y \, 1]^T  \\
-     * x'  \leftarrow X/W  \\
-     * y'  \leftarrow Y/W  \\
-     * r^2  \leftarrow x'^2 + y'^2 \\
-     * x''  \leftarrow x' \frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k_6 r^6}
-     * + 2p_1 x' y' + p_2(r^2 + 2 x'^2)  + s_1 r^2 + s_2 r^4\\
-     * y''  \leftarrow y' \frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k_6 r^6}
-     * + p_1 (r^2 + 2 y'^2) + 2 p_2 x' y' + s_3 r^2 + s_4 r^4 \\
-     * s\vecthree{x'''}{y'''}{1} =
-     * \vecthreethree{R_{33}(\tau_x, \tau_y)}{0}{-R_{13}((\tau_x, \tau_y)}
-     * {0}{R_{33}(\tau_x, \tau_y)}{-R_{23}(\tau_x, \tau_y)}
-     * {0}{0}{1} R(\tau_x, \tau_y) \vecthree{x''}{y''}{1}\\
-     * map_x(u,v)  \leftarrow x''' f_x + c_x  \\
-     * map_y(u,v)  \leftarrow y''' f_y + c_y
-     * \end{array}
-     * \)
-     * where \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\)
-     * are the distortion coefficients.
-     *
-     * In case of a stereo camera, this function is called twice: once for each camera head, after
-     * stereoRectify, which in its turn is called after #stereoCalibrate. But if the stereo camera
-     * was not calibrated, it is still possible to compute the rectification transformations directly from
-     * the fundamental matrix using #stereoRectifyUncalibrated. For each camera, the function computes
-     * homography H as the rectification transformation in a pixel domain, not a rotation matrix R in 3D
-     * space. R can be computed from H as
-     * \(\texttt{R} = \texttt{cameraMatrix} ^{-1} \cdot \texttt{H} \cdot \texttt{cameraMatrix}\)
-     * where cameraMatrix can be chosen arbitrarily.
-     *
-     * @param cameraMatrix Input camera matrix \(A=\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) .
-     * @param distCoeffs Input vector of distortion coefficients
-     * \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\)
-     * of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
-     * @param R Optional rectification transformation in the object space (3x3 matrix). R1 or R2 ,
-     * computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation
-     * is assumed. In cvInitUndistortMap R assumed to be an identity matrix.
-     * @param newCameraMatrix New camera matrix \(A'=\vecthreethree{f_x'}{0}{c_x'}{0}{f_y'}{c_y'}{0}{0}{1}\).
-     * @param size Undistorted image size.
-     * @param m1type Type of the first output map that can be CV_32FC1, CV_32FC2 or CV_16SC2, see #convertMaps
-     * @param map1 The first output map.
-     * @param map2 The second output map.
-     */
-    public static void initUndistortRectifyMap(Mat cameraMatrix, Mat distCoeffs, Mat R, Mat newCameraMatrix, Size size, int m1type, Mat map1, Mat map2) {
-        initUndistortRectifyMap_0(cameraMatrix.nativeObj, distCoeffs.nativeObj, R.nativeObj, newCameraMatrix.nativeObj, size.width, size.height, m1type, map1.nativeObj, map2.nativeObj);
     }
 
 
@@ -8331,6 +8195,69 @@ public class Imgproc {
 
 
     //
+    // C++:  void cv::rectangle(Mat& img, Rect rec, Scalar color, int thickness = 1, int lineType = LINE_8, int shift = 0)
+    //
+
+    /**
+     *
+     *
+     * use {@code rec} parameter as alternative specification of the drawn rectangle: `r.tl() and
+     * r.br()-Point(1,1)` are opposite corners
+     * @param img automatically generated
+     * @param rec automatically generated
+     * @param color automatically generated
+     * @param thickness automatically generated
+     * @param lineType automatically generated
+     * @param shift automatically generated
+     */
+    public static void rectangle(Mat img, Rect rec, Scalar color, int thickness, int lineType, int shift) {
+        rectangle_4(img.nativeObj, rec.x, rec.y, rec.width, rec.height, color.val[0], color.val[1], color.val[2], color.val[3], thickness, lineType, shift);
+    }
+
+    /**
+     *
+     *
+     * use {@code rec} parameter as alternative specification of the drawn rectangle: `r.tl() and
+     * r.br()-Point(1,1)` are opposite corners
+     * @param img automatically generated
+     * @param rec automatically generated
+     * @param color automatically generated
+     * @param thickness automatically generated
+     * @param lineType automatically generated
+     */
+    public static void rectangle(Mat img, Rect rec, Scalar color, int thickness, int lineType) {
+        rectangle_5(img.nativeObj, rec.x, rec.y, rec.width, rec.height, color.val[0], color.val[1], color.val[2], color.val[3], thickness, lineType);
+    }
+
+    /**
+     *
+     *
+     * use {@code rec} parameter as alternative specification of the drawn rectangle: `r.tl() and
+     * r.br()-Point(1,1)` are opposite corners
+     * @param img automatically generated
+     * @param rec automatically generated
+     * @param color automatically generated
+     * @param thickness automatically generated
+     */
+    public static void rectangle(Mat img, Rect rec, Scalar color, int thickness) {
+        rectangle_6(img.nativeObj, rec.x, rec.y, rec.width, rec.height, color.val[0], color.val[1], color.val[2], color.val[3], thickness);
+    }
+
+    /**
+     *
+     *
+     * use {@code rec} parameter as alternative specification of the drawn rectangle: `r.tl() and
+     * r.br()-Point(1,1)` are opposite corners
+     * @param img automatically generated
+     * @param rec automatically generated
+     * @param color automatically generated
+     */
+    public static void rectangle(Mat img, Rect rec, Scalar color) {
+        rectangle_7(img.nativeObj, rec.x, rec.y, rec.width, rec.height, color.val[0], color.val[1], color.val[2], color.val[3]);
+    }
+
+
+    //
     // C++:  void cv::remap(Mat src, Mat& dst, Mat map1, Mat map2, int interpolation, int borderMode = BORDER_CONSTANT, Scalar borderValue = Scalar())
     //
 
@@ -8845,235 +8772,6 @@ public class Imgproc {
 
 
     //
-    // C++:  void cv::undistort(Mat src, Mat& dst, Mat cameraMatrix, Mat distCoeffs, Mat newCameraMatrix = Mat())
-    //
-
-    /**
-     * Transforms an image to compensate for lens distortion.
-     *
-     * The function transforms an image to compensate radial and tangential lens distortion.
-     *
-     * The function is simply a combination of #initUndistortRectifyMap (with unity R ) and #remap
-     * (with bilinear interpolation). See the former function for details of the transformation being
-     * performed.
-     *
-     * Those pixels in the destination image, for which there is no correspondent pixels in the source
-     * image, are filled with zeros (black color).
-     *
-     * A particular subset of the source image that will be visible in the corrected image can be regulated
-     * by newCameraMatrix. You can use #getOptimalNewCameraMatrix to compute the appropriate
-     * newCameraMatrix depending on your requirements.
-     *
-     * The camera matrix and the distortion parameters can be determined using #calibrateCamera. If
-     * the resolution of images is different from the resolution used at the calibration stage, \(f_x,
-     * f_y, c_x\) and \(c_y\) need to be scaled accordingly, while the distortion coefficients remain
-     * the same.
-     *
-     * @param src Input (distorted) image.
-     * @param dst Output (corrected) image that has the same size and type as src .
-     * @param cameraMatrix Input camera matrix \(A = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) .
-     * @param distCoeffs Input vector of distortion coefficients
-     * \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\)
-     * of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
-     * @param newCameraMatrix Camera matrix of the distorted image. By default, it is the same as
-     * cameraMatrix but you may additionally scale and shift the result by using a different matrix.
-     */
-    public static void undistort(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, Mat newCameraMatrix) {
-        undistort_0(src.nativeObj, dst.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj, newCameraMatrix.nativeObj);
-    }
-
-    /**
-     * Transforms an image to compensate for lens distortion.
-     *
-     * The function transforms an image to compensate radial and tangential lens distortion.
-     *
-     * The function is simply a combination of #initUndistortRectifyMap (with unity R ) and #remap
-     * (with bilinear interpolation). See the former function for details of the transformation being
-     * performed.
-     *
-     * Those pixels in the destination image, for which there is no correspondent pixels in the source
-     * image, are filled with zeros (black color).
-     *
-     * A particular subset of the source image that will be visible in the corrected image can be regulated
-     * by newCameraMatrix. You can use #getOptimalNewCameraMatrix to compute the appropriate
-     * newCameraMatrix depending on your requirements.
-     *
-     * The camera matrix and the distortion parameters can be determined using #calibrateCamera. If
-     * the resolution of images is different from the resolution used at the calibration stage, \(f_x,
-     * f_y, c_x\) and \(c_y\) need to be scaled accordingly, while the distortion coefficients remain
-     * the same.
-     *
-     * @param src Input (distorted) image.
-     * @param dst Output (corrected) image that has the same size and type as src .
-     * @param cameraMatrix Input camera matrix \(A = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) .
-     * @param distCoeffs Input vector of distortion coefficients
-     * \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\)
-     * of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
-     * cameraMatrix but you may additionally scale and shift the result by using a different matrix.
-     */
-    public static void undistort(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs) {
-        undistort_1(src.nativeObj, dst.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj);
-    }
-
-
-    //
-    // C++:  void cv::undistortPoints(Mat src, Mat& dst, Mat cameraMatrix, Mat distCoeffs, Mat R, Mat P, TermCriteria criteria)
-    //
-
-    /**
-     *
-     *     <b>Note:</b> Default version of #undistortPoints does 5 iterations to compute undistorted points.
-     * @param src automatically generated
-     * @param dst automatically generated
-     * @param cameraMatrix automatically generated
-     * @param distCoeffs automatically generated
-     * @param R automatically generated
-     * @param P automatically generated
-     * @param criteria automatically generated
-     */
-    public static void undistortPointsIter(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, Mat R, Mat P, TermCriteria criteria) {
-        undistortPointsIter_0(src.nativeObj, dst.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj, R.nativeObj, P.nativeObj, criteria.type, criteria.maxCount, criteria.epsilon);
-    }
-
-
-    //
-    // C++:  void cv::undistortPoints(Mat src, Mat& dst, Mat cameraMatrix, Mat distCoeffs, Mat R = Mat(), Mat P = Mat())
-    //
-
-    /**
-     * Computes the ideal point coordinates from the observed point coordinates.
-     *
-     * The function is similar to #undistort and #initUndistortRectifyMap but it operates on a
-     * sparse set of points instead of a raster image. Also the function performs a reverse transformation
-     * to projectPoints. In case of a 3D object, it does not reconstruct its 3D coordinates, but for a
-     * planar object, it does, up to a translation vector, if the proper R is specified.
-     *
-     * For each observed point coordinate \((u, v)\) the function computes:
-     * \(
-     * \begin{array}{l}
-     * x^{"}  \leftarrow (u - c_x)/f_x  \\
-     * y^{"}  \leftarrow (v - c_y)/f_y  \\
-     * (x',y') = undistort(x^{"},y^{"}, \texttt{distCoeffs}) \\
-     * {[X\,Y\,W]} ^T  \leftarrow R*[x' \, y' \, 1]^T  \\
-     * x  \leftarrow X/W  \\
-     * y  \leftarrow Y/W  \\
-     * \text{only performed if P is specified:} \\
-     * u'  \leftarrow x {f'}_x + {c'}_x  \\
-     * v'  \leftarrow y {f'}_y + {c'}_y
-     * \end{array}
-     * \)
-     *
-     * where *undistort* is an approximate iterative algorithm that estimates the normalized original
-     * point coordinates out of the normalized distorted point coordinates ("normalized" means that the
-     * coordinates do not depend on the camera matrix).
-     *
-     * The function can be used for both a stereo camera head or a monocular camera (when R is empty).
-     * @param src Observed point coordinates, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel (CV_32FC2 or CV_64FC2) (or
-     * vector&lt;Point2f&gt; ).
-     * @param dst Output ideal point coordinates (1xN/Nx1 2-channel or vector&lt;Point2f&gt; ) after undistortion and reverse perspective
-     * transformation. If matrix P is identity or omitted, dst will contain normalized point coordinates.
-     * @param cameraMatrix Camera matrix \(\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) .
-     * @param distCoeffs Input vector of distortion coefficients
-     * \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\)
-     * of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
-     * @param R Rectification transformation in the object space (3x3 matrix). R1 or R2 computed by
-     * #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used.
-     * @param P New camera matrix (3x3) or new projection matrix (3x4) \(\begin{bmatrix} {f'}_x &amp; 0 &amp; {c'}_x &amp; t_x \\ 0 &amp; {f'}_y &amp; {c'}_y &amp; t_y \\ 0 &amp; 0 &amp; 1 &amp; t_z \end{bmatrix}\). P1 or P2 computed by
-     * #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used.
-     */
-    public static void undistortPoints(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, Mat R, Mat P) {
-        undistortPoints_0(src.nativeObj, dst.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj, R.nativeObj, P.nativeObj);
-    }
-
-    /**
-     * Computes the ideal point coordinates from the observed point coordinates.
-     *
-     * The function is similar to #undistort and #initUndistortRectifyMap but it operates on a
-     * sparse set of points instead of a raster image. Also the function performs a reverse transformation
-     * to projectPoints. In case of a 3D object, it does not reconstruct its 3D coordinates, but for a
-     * planar object, it does, up to a translation vector, if the proper R is specified.
-     *
-     * For each observed point coordinate \((u, v)\) the function computes:
-     * \(
-     * \begin{array}{l}
-     * x^{"}  \leftarrow (u - c_x)/f_x  \\
-     * y^{"}  \leftarrow (v - c_y)/f_y  \\
-     * (x',y') = undistort(x^{"},y^{"}, \texttt{distCoeffs}) \\
-     * {[X\,Y\,W]} ^T  \leftarrow R*[x' \, y' \, 1]^T  \\
-     * x  \leftarrow X/W  \\
-     * y  \leftarrow Y/W  \\
-     * \text{only performed if P is specified:} \\
-     * u'  \leftarrow x {f'}_x + {c'}_x  \\
-     * v'  \leftarrow y {f'}_y + {c'}_y
-     * \end{array}
-     * \)
-     *
-     * where *undistort* is an approximate iterative algorithm that estimates the normalized original
-     * point coordinates out of the normalized distorted point coordinates ("normalized" means that the
-     * coordinates do not depend on the camera matrix).
-     *
-     * The function can be used for both a stereo camera head or a monocular camera (when R is empty).
-     * @param src Observed point coordinates, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel (CV_32FC2 or CV_64FC2) (or
-     * vector&lt;Point2f&gt; ).
-     * @param dst Output ideal point coordinates (1xN/Nx1 2-channel or vector&lt;Point2f&gt; ) after undistortion and reverse perspective
-     * transformation. If matrix P is identity or omitted, dst will contain normalized point coordinates.
-     * @param cameraMatrix Camera matrix \(\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) .
-     * @param distCoeffs Input vector of distortion coefficients
-     * \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\)
-     * of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
-     * @param R Rectification transformation in the object space (3x3 matrix). R1 or R2 computed by
-     * #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used.
-     * #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used.
-     */
-    public static void undistortPoints(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, Mat R) {
-        undistortPoints_1(src.nativeObj, dst.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj, R.nativeObj);
-    }
-
-    /**
-     * Computes the ideal point coordinates from the observed point coordinates.
-     *
-     * The function is similar to #undistort and #initUndistortRectifyMap but it operates on a
-     * sparse set of points instead of a raster image. Also the function performs a reverse transformation
-     * to projectPoints. In case of a 3D object, it does not reconstruct its 3D coordinates, but for a
-     * planar object, it does, up to a translation vector, if the proper R is specified.
-     *
-     * For each observed point coordinate \((u, v)\) the function computes:
-     * \(
-     * \begin{array}{l}
-     * x^{"}  \leftarrow (u - c_x)/f_x  \\
-     * y^{"}  \leftarrow (v - c_y)/f_y  \\
-     * (x',y') = undistort(x^{"},y^{"}, \texttt{distCoeffs}) \\
-     * {[X\,Y\,W]} ^T  \leftarrow R*[x' \, y' \, 1]^T  \\
-     * x  \leftarrow X/W  \\
-     * y  \leftarrow Y/W  \\
-     * \text{only performed if P is specified:} \\
-     * u'  \leftarrow x {f'}_x + {c'}_x  \\
-     * v'  \leftarrow y {f'}_y + {c'}_y
-     * \end{array}
-     * \)
-     *
-     * where *undistort* is an approximate iterative algorithm that estimates the normalized original
-     * point coordinates out of the normalized distorted point coordinates ("normalized" means that the
-     * coordinates do not depend on the camera matrix).
-     *
-     * The function can be used for both a stereo camera head or a monocular camera (when R is empty).
-     * @param src Observed point coordinates, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel (CV_32FC2 or CV_64FC2) (or
-     * vector&lt;Point2f&gt; ).
-     * @param dst Output ideal point coordinates (1xN/Nx1 2-channel or vector&lt;Point2f&gt; ) after undistortion and reverse perspective
-     * transformation. If matrix P is identity or omitted, dst will contain normalized point coordinates.
-     * @param cameraMatrix Camera matrix \(\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) .
-     * @param distCoeffs Input vector of distortion coefficients
-     * \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\)
-     * of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
-     * #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used.
-     * #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used.
-     */
-    public static void undistortPoints(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs) {
-        undistortPoints_2(src.nativeObj, dst.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj);
-    }
-
-
-    //
     // C++:  void cv::warpAffine(Mat src, Mat& dst, Mat M, Size dsize, int flags = INTER_LINEAR, int borderMode = BORDER_CONSTANT, Scalar borderValue = Scalar())
     //
 
@@ -9472,11 +9170,6 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
     // C++:  Mat cv::getAffineTransform(vector_Point2f src, vector_Point2f dst)
     private static native long getAffineTransform_0(long src_mat_nativeObj, long dst_mat_nativeObj);
 
-    // C++:  Mat cv::getDefaultNewCameraMatrix(Mat cameraMatrix, Size imgsize = Size(), bool centerPrincipalPoint = false)
-    private static native long getDefaultNewCameraMatrix_0(long cameraMatrix_nativeObj, double imgsize_width, double imgsize_height, boolean centerPrincipalPoint);
-    private static native long getDefaultNewCameraMatrix_1(long cameraMatrix_nativeObj, double imgsize_width, double imgsize_height);
-    private static native long getDefaultNewCameraMatrix_2(long cameraMatrix_nativeObj);
-
     // C++:  Mat cv::getGaborKernel(Size ksize, double sigma, double theta, double lambd, double gamma, double psi = CV_PI*0.5, int ktype = CV_64F)
     private static native long getGaborKernel_0(double ksize_width, double ksize_height, double sigma, double theta, double lambd, double gamma, double psi, int ktype);
     private static native long getGaborKernel_1(double ksize_width, double ksize_height, double sigma, double theta, double lambd, double gamma, double psi);
@@ -9486,8 +9179,9 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
     private static native long getGaussianKernel_0(int ksize, double sigma, int ktype);
     private static native long getGaussianKernel_1(int ksize, double sigma);
 
-    // C++:  Mat cv::getPerspectiveTransform(Mat src, Mat dst)
-    private static native long getPerspectiveTransform_0(long src_nativeObj, long dst_nativeObj);
+    // C++:  Mat cv::getPerspectiveTransform(Mat src, Mat dst, int solveMethod = DECOMP_LU)
+    private static native long getPerspectiveTransform_0(long src_nativeObj, long dst_nativeObj, int solveMethod);
+    private static native long getPerspectiveTransform_1(long src_nativeObj, long dst_nativeObj);
 
     // C++:  Mat cv::getRotationMatrix2D(Point2f center, double angle, double scale)
     private static native long getRotationMatrix2D_0(double center_x, double center_y, double angle, double scale);
@@ -9573,11 +9267,6 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
 
     // C++:  double cv::threshold(Mat src, Mat& dst, double thresh, double maxval, int type)
     private static native double threshold_0(long src_nativeObj, long dst_nativeObj, double thresh, double maxval, int type);
-
-    // C++:  float cv::initWideAngleProjMap(Mat cameraMatrix, Mat distCoeffs, Size imageSize, int destImageWidth, int m1type, Mat& map1, Mat& map2, int projType = PROJ_SPHERICAL_EQRECT, double alpha = 0)
-    private static native float initWideAngleProjMap_0(long cameraMatrix_nativeObj, long distCoeffs_nativeObj, double imageSize_width, double imageSize_height, int destImageWidth, int m1type, long map1_nativeObj, long map2_nativeObj, int projType, double alpha);
-    private static native float initWideAngleProjMap_1(long cameraMatrix_nativeObj, long distCoeffs_nativeObj, double imageSize_width, double imageSize_height, int destImageWidth, int m1type, long map1_nativeObj, long map2_nativeObj, int projType);
-    private static native float initWideAngleProjMap_2(long cameraMatrix_nativeObj, long distCoeffs_nativeObj, double imageSize_width, double imageSize_height, int destImageWidth, int m1type, long map1_nativeObj, long map2_nativeObj);
 
     // C++:  float cv::intersectConvexConvex(Mat _p1, Mat _p2, Mat& _p12, bool handleNested = true)
     private static native float intersectConvexConvex_0(long _p1_nativeObj, long _p2_nativeObj, long _p12_nativeObj, boolean handleNested);
@@ -9851,7 +9540,7 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
     private static native void filter2D_2(long src_nativeObj, long dst_nativeObj, int ddepth, long kernel_nativeObj, double anchor_x, double anchor_y);
     private static native void filter2D_3(long src_nativeObj, long dst_nativeObj, int ddepth, long kernel_nativeObj);
 
-    // C++:  void cv::findContours(Mat& image, vector_vector_Point& contours, Mat& hierarchy, int mode, int method, Point offset = Point())
+    // C++:  void cv::findContours(Mat image, vector_vector_Point& contours, Mat& hierarchy, int mode, int method, Point offset = Point())
     private static native void findContours_0(long image_nativeObj, long contours_mat_nativeObj, long hierarchy_nativeObj, int mode, int method, double offset_x, double offset_y);
     private static native void findContours_1(long image_nativeObj, long contours_mat_nativeObj, long hierarchy_nativeObj, int mode, int method);
 
@@ -9882,9 +9571,6 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
     // C++:  void cv::grabCut(Mat img, Mat& mask, Rect rect, Mat& bgdModel, Mat& fgdModel, int iterCount, int mode = GC_EVAL)
     private static native void grabCut_0(long img_nativeObj, long mask_nativeObj, int rect_x, int rect_y, int rect_width, int rect_height, long bgdModel_nativeObj, long fgdModel_nativeObj, int iterCount, int mode);
     private static native void grabCut_1(long img_nativeObj, long mask_nativeObj, int rect_x, int rect_y, int rect_width, int rect_height, long bgdModel_nativeObj, long fgdModel_nativeObj, int iterCount);
-
-    // C++:  void cv::initUndistortRectifyMap(Mat cameraMatrix, Mat distCoeffs, Mat R, Mat newCameraMatrix, Size size, int m1type, Mat& map1, Mat& map2)
-    private static native void initUndistortRectifyMap_0(long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long R_nativeObj, long newCameraMatrix_nativeObj, double size_width, double size_height, int m1type, long map1_nativeObj, long map2_nativeObj);
 
     // C++:  void cv::integral(Mat src, Mat& sum, Mat& sqsum, Mat& tilted, int sdepth = -1, int sqdepth = -1)
     private static native void integral3_0(long src_nativeObj, long sum_nativeObj, long sqsum_nativeObj, long tilted_nativeObj, int sdepth, int sqdepth);
@@ -9969,6 +9655,12 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
     private static native void rectangle_2(long img_nativeObj, double pt1_x, double pt1_y, double pt2_x, double pt2_y, double color_val0, double color_val1, double color_val2, double color_val3, int thickness);
     private static native void rectangle_3(long img_nativeObj, double pt1_x, double pt1_y, double pt2_x, double pt2_y, double color_val0, double color_val1, double color_val2, double color_val3);
 
+    // C++:  void cv::rectangle(Mat& img, Rect rec, Scalar color, int thickness = 1, int lineType = LINE_8, int shift = 0)
+    private static native void rectangle_4(long img_nativeObj, int rec_x, int rec_y, int rec_width, int rec_height, double color_val0, double color_val1, double color_val2, double color_val3, int thickness, int lineType, int shift);
+    private static native void rectangle_5(long img_nativeObj, int rec_x, int rec_y, int rec_width, int rec_height, double color_val0, double color_val1, double color_val2, double color_val3, int thickness, int lineType);
+    private static native void rectangle_6(long img_nativeObj, int rec_x, int rec_y, int rec_width, int rec_height, double color_val0, double color_val1, double color_val2, double color_val3, int thickness);
+    private static native void rectangle_7(long img_nativeObj, int rec_x, int rec_y, int rec_width, int rec_height, double color_val0, double color_val1, double color_val2, double color_val3);
+
     // C++:  void cv::remap(Mat src, Mat& dst, Mat map1, Mat map2, int interpolation, int borderMode = BORDER_CONSTANT, Scalar borderValue = Scalar())
     private static native void remap_0(long src_nativeObj, long dst_nativeObj, long map1_nativeObj, long map2_nativeObj, int interpolation, int borderMode, double borderValue_val0, double borderValue_val1, double borderValue_val2, double borderValue_val3);
     private static native void remap_1(long src_nativeObj, long dst_nativeObj, long map1_nativeObj, long map2_nativeObj, int interpolation, int borderMode);
@@ -9996,18 +9688,6 @@ public static Size getTextSize(String text, int fontFace, double fontScale, int 
     private static native void sqrBoxFilter_1(long src_nativeObj, long dst_nativeObj, int ddepth, double ksize_width, double ksize_height, double anchor_x, double anchor_y, boolean normalize);
     private static native void sqrBoxFilter_2(long src_nativeObj, long dst_nativeObj, int ddepth, double ksize_width, double ksize_height, double anchor_x, double anchor_y);
     private static native void sqrBoxFilter_3(long src_nativeObj, long dst_nativeObj, int ddepth, double ksize_width, double ksize_height);
-
-    // C++:  void cv::undistort(Mat src, Mat& dst, Mat cameraMatrix, Mat distCoeffs, Mat newCameraMatrix = Mat())
-    private static native void undistort_0(long src_nativeObj, long dst_nativeObj, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long newCameraMatrix_nativeObj);
-    private static native void undistort_1(long src_nativeObj, long dst_nativeObj, long cameraMatrix_nativeObj, long distCoeffs_nativeObj);
-
-    // C++:  void cv::undistortPoints(Mat src, Mat& dst, Mat cameraMatrix, Mat distCoeffs, Mat R, Mat P, TermCriteria criteria)
-    private static native void undistortPointsIter_0(long src_nativeObj, long dst_nativeObj, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long R_nativeObj, long P_nativeObj, int criteria_type, int criteria_maxCount, double criteria_epsilon);
-
-    // C++:  void cv::undistortPoints(Mat src, Mat& dst, Mat cameraMatrix, Mat distCoeffs, Mat R = Mat(), Mat P = Mat())
-    private static native void undistortPoints_0(long src_nativeObj, long dst_nativeObj, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long R_nativeObj, long P_nativeObj);
-    private static native void undistortPoints_1(long src_nativeObj, long dst_nativeObj, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long R_nativeObj);
-    private static native void undistortPoints_2(long src_nativeObj, long dst_nativeObj, long cameraMatrix_nativeObj, long distCoeffs_nativeObj);
 
     // C++:  void cv::warpAffine(Mat src, Mat& dst, Mat M, Size dsize, int flags = INTER_LINEAR, int borderMode = BORDER_CONSTANT, Scalar borderValue = Scalar())
     private static native void warpAffine_0(long src_nativeObj, long dst_nativeObj, long M_nativeObj, double dsize_width, double dsize_height, int flags, int borderMode, double borderValue_val0, double borderValue_val1, double borderValue_val2, double borderValue_val3);

@@ -36,9 +36,12 @@ public class Calib3d {
             CALIB_CB_NORMALIZE_IMAGE = 2,
             CALIB_CB_FILTER_QUADS = 4,
             CALIB_CB_FAST_CHECK = 8,
+            CALIB_CB_EXHAUSTIVE = 16,
+            CALIB_CB_ACCURACY = 32,
             CALIB_CB_SYMMETRIC_GRID = 1,
             CALIB_CB_ASYMMETRIC_GRID = 2,
             CALIB_CB_CLUSTERING = 4,
+            CALIB_NINTRINSIC = 18,
             CALIB_USE_INTRINSIC_GUESS = 0x00001,
             CALIB_FIX_ASPECT_RATIO = 0x00002,
             CALIB_FIX_PRINCIPAL_POINT = 0x00004,
@@ -76,6 +79,12 @@ public class Calib3d {
             fisheye_CALIB_FIX_K4 = 1 << 7,
             fisheye_CALIB_FIX_INTRINSIC = 1 << 8,
             fisheye_CALIB_FIX_PRINCIPAL_POINT = 1 << 9;
+
+
+    // C++: enum UndistortTypes
+    public static final int
+            PROJ_SPHERICAL_ORTHO = 0,
+            PROJ_SPHERICAL_EQRECT = 1;
 
 
     // C++: enum SolvePnPMethod
@@ -2222,6 +2231,92 @@ public class Calib3d {
 
 
     //
+    // C++:  Mat cv::getDefaultNewCameraMatrix(Mat cameraMatrix, Size imgsize = Size(), bool centerPrincipalPoint = false)
+    //
+
+    /**
+     * Returns the default new camera matrix.
+     *
+     * The function returns the camera matrix that is either an exact copy of the input cameraMatrix (when
+     * centerPrinicipalPoint=false ), or the modified one (when centerPrincipalPoint=true).
+     *
+     * In the latter case, the new camera matrix will be:
+     *
+     * \(\begin{bmatrix} f_x &amp;&amp; 0 &amp;&amp; ( \texttt{imgSize.width} -1)*0.5  \\ 0 &amp;&amp; f_y &amp;&amp; ( \texttt{imgSize.height} -1)*0.5  \\ 0 &amp;&amp; 0 &amp;&amp; 1 \end{bmatrix} ,\)
+     *
+     * where \(f_x\) and \(f_y\) are \((0,0)\) and \((1,1)\) elements of cameraMatrix, respectively.
+     *
+     * By default, the undistortion functions in OpenCV (see #initUndistortRectifyMap, #undistort) do not
+     * move the principal point. However, when you work with stereo, it is important to move the principal
+     * points in both views to the same y-coordinate (which is required by most of stereo correspondence
+     * algorithms), and may be to the same x-coordinate too. So, you can form the new camera matrix for
+     * each view where the principal points are located at the center.
+     *
+     * @param cameraMatrix Input camera matrix.
+     * @param imgsize Camera view image size in pixels.
+     * @param centerPrincipalPoint Location of the principal point in the new camera matrix. The
+     * parameter indicates whether this location should be at the image center or not.
+     * @return automatically generated
+     */
+    public static Mat getDefaultNewCameraMatrix(Mat cameraMatrix, Size imgsize, boolean centerPrincipalPoint) {
+        return new Mat(getDefaultNewCameraMatrix_0(cameraMatrix.nativeObj, imgsize.width, imgsize.height, centerPrincipalPoint));
+    }
+
+    /**
+     * Returns the default new camera matrix.
+     *
+     * The function returns the camera matrix that is either an exact copy of the input cameraMatrix (when
+     * centerPrinicipalPoint=false ), or the modified one (when centerPrincipalPoint=true).
+     *
+     * In the latter case, the new camera matrix will be:
+     *
+     * \(\begin{bmatrix} f_x &amp;&amp; 0 &amp;&amp; ( \texttt{imgSize.width} -1)*0.5  \\ 0 &amp;&amp; f_y &amp;&amp; ( \texttt{imgSize.height} -1)*0.5  \\ 0 &amp;&amp; 0 &amp;&amp; 1 \end{bmatrix} ,\)
+     *
+     * where \(f_x\) and \(f_y\) are \((0,0)\) and \((1,1)\) elements of cameraMatrix, respectively.
+     *
+     * By default, the undistortion functions in OpenCV (see #initUndistortRectifyMap, #undistort) do not
+     * move the principal point. However, when you work with stereo, it is important to move the principal
+     * points in both views to the same y-coordinate (which is required by most of stereo correspondence
+     * algorithms), and may be to the same x-coordinate too. So, you can form the new camera matrix for
+     * each view where the principal points are located at the center.
+     *
+     * @param cameraMatrix Input camera matrix.
+     * @param imgsize Camera view image size in pixels.
+     * parameter indicates whether this location should be at the image center or not.
+     * @return automatically generated
+     */
+    public static Mat getDefaultNewCameraMatrix(Mat cameraMatrix, Size imgsize) {
+        return new Mat(getDefaultNewCameraMatrix_1(cameraMatrix.nativeObj, imgsize.width, imgsize.height));
+    }
+
+    /**
+     * Returns the default new camera matrix.
+     *
+     * The function returns the camera matrix that is either an exact copy of the input cameraMatrix (when
+     * centerPrinicipalPoint=false ), or the modified one (when centerPrincipalPoint=true).
+     *
+     * In the latter case, the new camera matrix will be:
+     *
+     * \(\begin{bmatrix} f_x &amp;&amp; 0 &amp;&amp; ( \texttt{imgSize.width} -1)*0.5  \\ 0 &amp;&amp; f_y &amp;&amp; ( \texttt{imgSize.height} -1)*0.5  \\ 0 &amp;&amp; 0 &amp;&amp; 1 \end{bmatrix} ,\)
+     *
+     * where \(f_x\) and \(f_y\) are \((0,0)\) and \((1,1)\) elements of cameraMatrix, respectively.
+     *
+     * By default, the undistortion functions in OpenCV (see #initUndistortRectifyMap, #undistort) do not
+     * move the principal point. However, when you work with stereo, it is important to move the principal
+     * points in both views to the same y-coordinate (which is required by most of stereo correspondence
+     * algorithms), and may be to the same x-coordinate too. So, you can form the new camera matrix for
+     * each view where the principal points are located at the center.
+     *
+     * @param cameraMatrix Input camera matrix.
+     * parameter indicates whether this location should be at the image center or not.
+     * @return automatically generated
+     */
+    public static Mat getDefaultNewCameraMatrix(Mat cameraMatrix) {
+        return new Mat(getDefaultNewCameraMatrix_2(cameraMatrix.nativeObj));
+    }
+
+
+    //
     // C++:  Mat cv::getOptimalNewCameraMatrix(Mat cameraMatrix, Mat distCoeffs, Size imageSize, double alpha, Size newImgSize = Size(), Rect* validPixROI = 0, bool centerPrincipalPoint = false)
     //
 
@@ -2517,6 +2612,15 @@ public class Calib3d {
 
 
     //
+    // C++:  bool cv::checkChessboard(Mat img, Size size)
+    //
+
+    public static boolean checkChessboard(Mat img, Size size) {
+        return checkChessboard_0(img.nativeObj, size.width, size.height);
+    }
+
+
+    //
     // C++:  bool cv::find4QuadCornerSubpix(Mat img, Mat& corners, Size region_size)
     //
 
@@ -2534,7 +2638,7 @@ public class Calib3d {
      *
      * @param image Source chessboard view. It must be an 8-bit grayscale or color image.
      * @param patternSize Number of inner corners per a chessboard row and column
-     * ( patternSize = cvSize(points_per_row,points_per_colum) = cvSize(columns,rows) ).
+     * ( patternSize = cv::Size(points_per_row,points_per_colum) = cv::Size(columns,rows) ).
      * @param corners Output array of detected corners.
      * @param flags Various operation flags that can be zero or a combination of the following values:
      * <ul>
@@ -2600,7 +2704,7 @@ public class Calib3d {
      *
      * @param image Source chessboard view. It must be an 8-bit grayscale or color image.
      * @param patternSize Number of inner corners per a chessboard row and column
-     * ( patternSize = cvSize(points_per_row,points_per_colum) = cvSize(columns,rows) ).
+     * ( patternSize = cv::Size(points_per_row,points_per_colum) = cv::Size(columns,rows) ).
      * @param corners Output array of detected corners.
      * <ul>
      *   <li>
@@ -2662,6 +2766,98 @@ public class Calib3d {
 
 
     //
+    // C++:  bool cv::findChessboardCornersSB(Mat image, Size patternSize, Mat& corners, int flags = 0)
+    //
+
+    /**
+     * Finds the positions of internal corners of the chessboard using a sector based approach.
+     *
+     * @param image Source chessboard view. It must be an 8-bit grayscale or color image.
+     * @param patternSize Number of inner corners per a chessboard row and column
+     * ( patternSize = cv::Size(points_per_row,points_per_colum) = cv::Size(columns,rows) ).
+     * @param corners Output array of detected corners.
+     * @param flags Various operation flags that can be zero or a combination of the following values:
+     * <ul>
+     *   <li>
+     *    <b>CALIB_CB_NORMALIZE_IMAGE</b> Normalize the image gamma with equalizeHist before detection.
+     *   </li>
+     *   <li>
+     *    <b>CALIB_CB_EXHAUSTIVE</b> Run an exhaustive search to improve detection rate.
+     *   </li>
+     *   <li>
+     *    <b>CALIB_CB_ACCURACY</b> Up sample input image to improve sub-pixel accuracy due to aliasing effects.
+     * This should be used if an accurate camera calibration is required.
+     *   </li>
+     * </ul>
+     *
+     * The function is analog to findchessboardCorners but uses a localized radon
+     * transformation approximated by box filters being more robust to all sort of
+     * noise, faster on larger images and is able to directly return the sub-pixel
+     * position of the internal chessboard corners. The Method is based on the paper
+     * CITE: duda2018 "Accurate Detection and Localization of Checkerboard Corners for
+     * Calibration" demonstrating that the returned sub-pixel positions are more
+     * accurate than the one returned by cornerSubPix allowing a precise camera
+     * calibration for demanding applications.
+     *
+     * <b>Note:</b> The function requires a white boarder with roughly the same width as one
+     * of the checkerboard fields around the whole board to improve the detection in
+     * various environments. In addition, because of the localized radon
+     * transformation it is beneficial to use round corners for the field corners
+     * which are located on the outside of the board. The following figure illustrates
+     * a sample checkerboard optimized for the detection. However, any other checkerboard
+     * can be used as well.
+     * ![Checkerboard](pics/checkerboard_radon.png)
+     * @return automatically generated
+     */
+    public static boolean findChessboardCornersSB(Mat image, Size patternSize, Mat corners, int flags) {
+        return findChessboardCornersSB_0(image.nativeObj, patternSize.width, patternSize.height, corners.nativeObj, flags);
+    }
+
+    /**
+     * Finds the positions of internal corners of the chessboard using a sector based approach.
+     *
+     * @param image Source chessboard view. It must be an 8-bit grayscale or color image.
+     * @param patternSize Number of inner corners per a chessboard row and column
+     * ( patternSize = cv::Size(points_per_row,points_per_colum) = cv::Size(columns,rows) ).
+     * @param corners Output array of detected corners.
+     * <ul>
+     *   <li>
+     *    <b>CALIB_CB_NORMALIZE_IMAGE</b> Normalize the image gamma with equalizeHist before detection.
+     *   </li>
+     *   <li>
+     *    <b>CALIB_CB_EXHAUSTIVE</b> Run an exhaustive search to improve detection rate.
+     *   </li>
+     *   <li>
+     *    <b>CALIB_CB_ACCURACY</b> Up sample input image to improve sub-pixel accuracy due to aliasing effects.
+     * This should be used if an accurate camera calibration is required.
+     *   </li>
+     * </ul>
+     *
+     * The function is analog to findchessboardCorners but uses a localized radon
+     * transformation approximated by box filters being more robust to all sort of
+     * noise, faster on larger images and is able to directly return the sub-pixel
+     * position of the internal chessboard corners. The Method is based on the paper
+     * CITE: duda2018 "Accurate Detection and Localization of Checkerboard Corners for
+     * Calibration" demonstrating that the returned sub-pixel positions are more
+     * accurate than the one returned by cornerSubPix allowing a precise camera
+     * calibration for demanding applications.
+     *
+     * <b>Note:</b> The function requires a white boarder with roughly the same width as one
+     * of the checkerboard fields around the whole board to improve the detection in
+     * various environments. In addition, because of the localized radon
+     * transformation it is beneficial to use round corners for the field corners
+     * which are located on the outside of the board. The following figure illustrates
+     * a sample checkerboard optimized for the detection. However, any other checkerboard
+     * can be used as well.
+     * ![Checkerboard](pics/checkerboard_radon.png)
+     * @return automatically generated
+     */
+    public static boolean findChessboardCornersSB(Mat image, Size patternSize, Mat corners) {
+        return findChessboardCornersSB_1(image.nativeObj, patternSize.width, patternSize.height, corners.nativeObj);
+    }
+
+
+    //
     // C++:  bool cv::findCirclesGrid(Mat image, Size patternSize, Mat& centers, int flags, Ptr_FeatureDetector blobDetector, CirclesGridFinderParameters parameters)
     //
 
@@ -2679,13 +2875,6 @@ public class Calib3d {
     public static boolean findCirclesGrid(Mat image, Size patternSize, Mat centers) {
         return findCirclesGrid_2(image.nativeObj, patternSize.width, patternSize.height, centers.nativeObj);
     }
-
-
-    //
-    // C++:  bool cv::findCirclesGrid2(Mat image, Size patternSize, Mat& centers, int flags, Ptr_FeatureDetector blobDetector, CirclesGridFinderParameters2 parameters)
-    //
-
-    // Unknown type 'Ptr_FeatureDetector' (I), skipping the function
 
 
     //
@@ -4156,7 +4345,7 @@ public class Calib3d {
      *     patternSize=cvSize(cols,rows) in findChessboardCorners .
      *
      * SEE:
-     *    findChessboardCorners, solvePnP, initCameraMatrix2D, stereoCalibrate, undistort
+     *    calibrateCameraRO, findChessboardCorners, solvePnP, initCameraMatrix2D, stereoCalibrate, undistort
      */
     public static double calibrateCameraExtended(List<Mat> objectPoints, List<Mat> imagePoints, Size imageSize, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs, List<Mat> tvecs, Mat stdDeviationsIntrinsics, Mat stdDeviationsExtrinsics, Mat perViewErrors, int flags, TermCriteria criteria) {
         Mat objectPoints_mat = Converters.vector_Mat_to_Mat(objectPoints);
@@ -4316,7 +4505,7 @@ public class Calib3d {
      *     patternSize=cvSize(cols,rows) in findChessboardCorners .
      *
      * SEE:
-     *    findChessboardCorners, solvePnP, initCameraMatrix2D, stereoCalibrate, undistort
+     *    calibrateCameraRO, findChessboardCorners, solvePnP, initCameraMatrix2D, stereoCalibrate, undistort
      */
     public static double calibrateCameraExtended(List<Mat> objectPoints, List<Mat> imagePoints, Size imageSize, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs, List<Mat> tvecs, Mat stdDeviationsIntrinsics, Mat stdDeviationsExtrinsics, Mat perViewErrors, int flags) {
         Mat objectPoints_mat = Converters.vector_Mat_to_Mat(objectPoints);
@@ -4475,7 +4664,7 @@ public class Calib3d {
      *     patternSize=cvSize(cols,rows) in findChessboardCorners .
      *
      * SEE:
-     *    findChessboardCorners, solvePnP, initCameraMatrix2D, stereoCalibrate, undistort
+     *    calibrateCameraRO, findChessboardCorners, solvePnP, initCameraMatrix2D, stereoCalibrate, undistort
      */
     public static double calibrateCameraExtended(List<Mat> objectPoints, List<Mat> imagePoints, Size imageSize, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs, List<Mat> tvecs, Mat stdDeviationsIntrinsics, Mat stdDeviationsExtrinsics, Mat perViewErrors) {
         Mat objectPoints_mat = Converters.vector_Mat_to_Mat(objectPoints);
@@ -4495,25 +4684,6 @@ public class Calib3d {
     // C++:  double cv::calibrateCamera(vector_Mat objectPoints, vector_Mat imagePoints, Size imageSize, Mat& cameraMatrix, Mat& distCoeffs, vector_Mat& rvecs, vector_Mat& tvecs, int flags = 0, TermCriteria criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON))
     //
 
-    /**
-     *  double calibrateCamera( InputArrayOfArrays objectPoints,
-     *                                      InputArrayOfArrays imagePoints, Size imageSize,
-     *                                      InputOutputArray cameraMatrix, InputOutputArray distCoeffs,
-     *                                      OutputArrayOfArrays rvecs, OutputArrayOfArrays tvecs,
-     *                                      OutputArray stdDeviations, OutputArray perViewErrors,
-     *                                      int flags = 0, TermCriteria criteria = TermCriteria(
-     *                                         TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) )
-     * @param objectPoints automatically generated
-     * @param imagePoints automatically generated
-     * @param imageSize automatically generated
-     * @param cameraMatrix automatically generated
-     * @param distCoeffs automatically generated
-     * @param rvecs automatically generated
-     * @param tvecs automatically generated
-     * @param flags automatically generated
-     * @param criteria automatically generated
-     * @return automatically generated
-     */
     public static double calibrateCamera(List<Mat> objectPoints, List<Mat> imagePoints, Size imageSize, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs, List<Mat> tvecs, int flags, TermCriteria criteria) {
         Mat objectPoints_mat = Converters.vector_Mat_to_Mat(objectPoints);
         Mat imagePoints_mat = Converters.vector_Mat_to_Mat(imagePoints);
@@ -4527,24 +4697,6 @@ public class Calib3d {
         return retVal;
     }
 
-    /**
-     *  double calibrateCamera( InputArrayOfArrays objectPoints,
-     *                                      InputArrayOfArrays imagePoints, Size imageSize,
-     *                                      InputOutputArray cameraMatrix, InputOutputArray distCoeffs,
-     *                                      OutputArrayOfArrays rvecs, OutputArrayOfArrays tvecs,
-     *                                      OutputArray stdDeviations, OutputArray perViewErrors,
-     *                                      int flags = 0, TermCriteria criteria = TermCriteria(
-     *                                         TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) )
-     * @param objectPoints automatically generated
-     * @param imagePoints automatically generated
-     * @param imageSize automatically generated
-     * @param cameraMatrix automatically generated
-     * @param distCoeffs automatically generated
-     * @param rvecs automatically generated
-     * @param tvecs automatically generated
-     * @param flags automatically generated
-     * @return automatically generated
-     */
     public static double calibrateCamera(List<Mat> objectPoints, List<Mat> imagePoints, Size imageSize, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs, List<Mat> tvecs, int flags) {
         Mat objectPoints_mat = Converters.vector_Mat_to_Mat(objectPoints);
         Mat imagePoints_mat = Converters.vector_Mat_to_Mat(imagePoints);
@@ -4558,29 +4710,271 @@ public class Calib3d {
         return retVal;
     }
 
-    /**
-     *  double calibrateCamera( InputArrayOfArrays objectPoints,
-     *                                      InputArrayOfArrays imagePoints, Size imageSize,
-     *                                      InputOutputArray cameraMatrix, InputOutputArray distCoeffs,
-     *                                      OutputArrayOfArrays rvecs, OutputArrayOfArrays tvecs,
-     *                                      OutputArray stdDeviations, OutputArray perViewErrors,
-     *                                      int flags = 0, TermCriteria criteria = TermCriteria(
-     *                                         TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON) )
-     * @param objectPoints automatically generated
-     * @param imagePoints automatically generated
-     * @param imageSize automatically generated
-     * @param cameraMatrix automatically generated
-     * @param distCoeffs automatically generated
-     * @param rvecs automatically generated
-     * @param tvecs automatically generated
-     * @return automatically generated
-     */
     public static double calibrateCamera(List<Mat> objectPoints, List<Mat> imagePoints, Size imageSize, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs, List<Mat> tvecs) {
         Mat objectPoints_mat = Converters.vector_Mat_to_Mat(objectPoints);
         Mat imagePoints_mat = Converters.vector_Mat_to_Mat(imagePoints);
         Mat rvecs_mat = new Mat();
         Mat tvecs_mat = new Mat();
         double retVal = calibrateCamera_2(objectPoints_mat.nativeObj, imagePoints_mat.nativeObj, imageSize.width, imageSize.height, cameraMatrix.nativeObj, distCoeffs.nativeObj, rvecs_mat.nativeObj, tvecs_mat.nativeObj);
+        Converters.Mat_to_vector_Mat(rvecs_mat, rvecs);
+        rvecs_mat.release();
+        Converters.Mat_to_vector_Mat(tvecs_mat, tvecs);
+        tvecs_mat.release();
+        return retVal;
+    }
+
+
+    //
+    // C++:  double cv::calibrateCameraRO(vector_Mat objectPoints, vector_Mat imagePoints, Size imageSize, int iFixedPoint, Mat& cameraMatrix, Mat& distCoeffs, vector_Mat& rvecs, vector_Mat& tvecs, Mat& newObjPoints, Mat& stdDeviationsIntrinsics, Mat& stdDeviationsExtrinsics, Mat& stdDeviationsObjPoints, Mat& perViewErrors, int flags = 0, TermCriteria criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON))
+    //
+
+    /**
+     * Finds the camera intrinsic and extrinsic parameters from several views of a calibration pattern.
+     *
+     * This function is an extension of calibrateCamera() with the method of releasing object which was
+     * proposed in CITE: strobl2011iccv. In many common cases with inaccurate, unmeasured, roughly planar
+     * targets (calibration plates), this method can dramatically improve the precision of the estimated
+     * camera parameters. Both the object-releasing method and standard method are supported by this
+     * function. Use the parameter <b>iFixedPoint</b> for method selection. In the internal implementation,
+     * calibrateCamera() is a wrapper for this function.
+     *
+     * @param objectPoints Vector of vectors of calibration pattern points in the calibration pattern
+     * coordinate space. See calibrateCamera() for details. If the method of releasing object to be used,
+     * the identical calibration board must be used in each view and it must be fully visible, and all
+     * objectPoints[i] must be the same and all points should be roughly close to a plane. <b>The calibration
+     * target has to be rigid, or at least static if the camera (rather than the calibration target) is
+     * shifted for grabbing images.</b>
+     * @param imagePoints Vector of vectors of the projections of calibration pattern points. See
+     * calibrateCamera() for details.
+     * @param imageSize Size of the image used only to initialize the intrinsic camera matrix.
+     * @param iFixedPoint The index of the 3D object point in objectPoints[0] to be fixed. It also acts as
+     * a switch for calibration method selection. If object-releasing method to be used, pass in the
+     * parameter in the range of [1, objectPoints[0].size()-2], otherwise a value out of this range will
+     * make standard calibration method selected. Usually the top-right corner point of the calibration
+     * board grid is recommended to be fixed when object-releasing method being utilized. According to
+     * \cite strobl2011iccv, two other points are also fixed. In this implementation, objectPoints[0].front
+     * and objectPoints[0].back.z are used. With object-releasing method, accurate rvecs, tvecs and
+     * newObjPoints are only possible if coordinates of these three fixed points are accurate enough.
+     * @param cameraMatrix Output 3x3 floating-point camera matrix. See calibrateCamera() for details.
+     * @param distCoeffs Output vector of distortion coefficients. See calibrateCamera() for details.
+     * @param rvecs Output vector of rotation vectors estimated for each pattern view. See calibrateCamera()
+     * for details.
+     * @param tvecs Output vector of translation vectors estimated for each pattern view.
+     * @param newObjPoints The updated output vector of calibration pattern points. The coordinates might
+     * be scaled based on three fixed points. The returned coordinates are accurate only if the above
+     * mentioned three fixed points are accurate. If not needed, noArray() can be passed in. This parameter
+     * is ignored with standard calibration method.
+     * @param stdDeviationsIntrinsics Output vector of standard deviations estimated for intrinsic parameters.
+     * See calibrateCamera() for details.
+     * @param stdDeviationsExtrinsics Output vector of standard deviations estimated for extrinsic parameters.
+     * See calibrateCamera() for details.
+     * @param stdDeviationsObjPoints Output vector of standard deviations estimated for refined coordinates
+     * of calibration pattern points. It has the same size and order as objectPoints[0] vector. This
+     * parameter is ignored with standard calibration method.
+     *  @param perViewErrors Output vector of the RMS re-projection error estimated for each pattern view.
+     * @param flags Different flags that may be zero or a combination of some predefined values. See
+     * calibrateCamera() for details. If the method of releasing object is used, the calibration time may
+     * be much longer. CALIB_USE_QR or CALIB_USE_LU could be used for faster calibration with potentially
+     * less precise and less stable in some rare cases.
+     * @param criteria Termination criteria for the iterative optimization algorithm.
+     *
+     * @return the overall RMS re-projection error.
+     *
+     * The function estimates the intrinsic camera parameters and extrinsic parameters for each of the
+     * views. The algorithm is based on CITE: Zhang2000, CITE: BouguetMCT and CITE: strobl2011iccv. See
+     * calibrateCamera() for other detailed explanations.
+     * SEE:
+     *    calibrateCamera, findChessboardCorners, solvePnP, initCameraMatrix2D, stereoCalibrate, undistort
+     */
+    public static double calibrateCameraROExtended(List<Mat> objectPoints, List<Mat> imagePoints, Size imageSize, int iFixedPoint, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs, List<Mat> tvecs, Mat newObjPoints, Mat stdDeviationsIntrinsics, Mat stdDeviationsExtrinsics, Mat stdDeviationsObjPoints, Mat perViewErrors, int flags, TermCriteria criteria) {
+        Mat objectPoints_mat = Converters.vector_Mat_to_Mat(objectPoints);
+        Mat imagePoints_mat = Converters.vector_Mat_to_Mat(imagePoints);
+        Mat rvecs_mat = new Mat();
+        Mat tvecs_mat = new Mat();
+        double retVal = calibrateCameraROExtended_0(objectPoints_mat.nativeObj, imagePoints_mat.nativeObj, imageSize.width, imageSize.height, iFixedPoint, cameraMatrix.nativeObj, distCoeffs.nativeObj, rvecs_mat.nativeObj, tvecs_mat.nativeObj, newObjPoints.nativeObj, stdDeviationsIntrinsics.nativeObj, stdDeviationsExtrinsics.nativeObj, stdDeviationsObjPoints.nativeObj, perViewErrors.nativeObj, flags, criteria.type, criteria.maxCount, criteria.epsilon);
+        Converters.Mat_to_vector_Mat(rvecs_mat, rvecs);
+        rvecs_mat.release();
+        Converters.Mat_to_vector_Mat(tvecs_mat, tvecs);
+        tvecs_mat.release();
+        return retVal;
+    }
+
+    /**
+     * Finds the camera intrinsic and extrinsic parameters from several views of a calibration pattern.
+     *
+     * This function is an extension of calibrateCamera() with the method of releasing object which was
+     * proposed in CITE: strobl2011iccv. In many common cases with inaccurate, unmeasured, roughly planar
+     * targets (calibration plates), this method can dramatically improve the precision of the estimated
+     * camera parameters. Both the object-releasing method and standard method are supported by this
+     * function. Use the parameter <b>iFixedPoint</b> for method selection. In the internal implementation,
+     * calibrateCamera() is a wrapper for this function.
+     *
+     * @param objectPoints Vector of vectors of calibration pattern points in the calibration pattern
+     * coordinate space. See calibrateCamera() for details. If the method of releasing object to be used,
+     * the identical calibration board must be used in each view and it must be fully visible, and all
+     * objectPoints[i] must be the same and all points should be roughly close to a plane. <b>The calibration
+     * target has to be rigid, or at least static if the camera (rather than the calibration target) is
+     * shifted for grabbing images.</b>
+     * @param imagePoints Vector of vectors of the projections of calibration pattern points. See
+     * calibrateCamera() for details.
+     * @param imageSize Size of the image used only to initialize the intrinsic camera matrix.
+     * @param iFixedPoint The index of the 3D object point in objectPoints[0] to be fixed. It also acts as
+     * a switch for calibration method selection. If object-releasing method to be used, pass in the
+     * parameter in the range of [1, objectPoints[0].size()-2], otherwise a value out of this range will
+     * make standard calibration method selected. Usually the top-right corner point of the calibration
+     * board grid is recommended to be fixed when object-releasing method being utilized. According to
+     * \cite strobl2011iccv, two other points are also fixed. In this implementation, objectPoints[0].front
+     * and objectPoints[0].back.z are used. With object-releasing method, accurate rvecs, tvecs and
+     * newObjPoints are only possible if coordinates of these three fixed points are accurate enough.
+     * @param cameraMatrix Output 3x3 floating-point camera matrix. See calibrateCamera() for details.
+     * @param distCoeffs Output vector of distortion coefficients. See calibrateCamera() for details.
+     * @param rvecs Output vector of rotation vectors estimated for each pattern view. See calibrateCamera()
+     * for details.
+     * @param tvecs Output vector of translation vectors estimated for each pattern view.
+     * @param newObjPoints The updated output vector of calibration pattern points. The coordinates might
+     * be scaled based on three fixed points. The returned coordinates are accurate only if the above
+     * mentioned three fixed points are accurate. If not needed, noArray() can be passed in. This parameter
+     * is ignored with standard calibration method.
+     * @param stdDeviationsIntrinsics Output vector of standard deviations estimated for intrinsic parameters.
+     * See calibrateCamera() for details.
+     * @param stdDeviationsExtrinsics Output vector of standard deviations estimated for extrinsic parameters.
+     * See calibrateCamera() for details.
+     * @param stdDeviationsObjPoints Output vector of standard deviations estimated for refined coordinates
+     * of calibration pattern points. It has the same size and order as objectPoints[0] vector. This
+     * parameter is ignored with standard calibration method.
+     *  @param perViewErrors Output vector of the RMS re-projection error estimated for each pattern view.
+     * @param flags Different flags that may be zero or a combination of some predefined values. See
+     * calibrateCamera() for details. If the method of releasing object is used, the calibration time may
+     * be much longer. CALIB_USE_QR or CALIB_USE_LU could be used for faster calibration with potentially
+     * less precise and less stable in some rare cases.
+     *
+     * @return the overall RMS re-projection error.
+     *
+     * The function estimates the intrinsic camera parameters and extrinsic parameters for each of the
+     * views. The algorithm is based on CITE: Zhang2000, CITE: BouguetMCT and CITE: strobl2011iccv. See
+     * calibrateCamera() for other detailed explanations.
+     * SEE:
+     *    calibrateCamera, findChessboardCorners, solvePnP, initCameraMatrix2D, stereoCalibrate, undistort
+     */
+    public static double calibrateCameraROExtended(List<Mat> objectPoints, List<Mat> imagePoints, Size imageSize, int iFixedPoint, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs, List<Mat> tvecs, Mat newObjPoints, Mat stdDeviationsIntrinsics, Mat stdDeviationsExtrinsics, Mat stdDeviationsObjPoints, Mat perViewErrors, int flags) {
+        Mat objectPoints_mat = Converters.vector_Mat_to_Mat(objectPoints);
+        Mat imagePoints_mat = Converters.vector_Mat_to_Mat(imagePoints);
+        Mat rvecs_mat = new Mat();
+        Mat tvecs_mat = new Mat();
+        double retVal = calibrateCameraROExtended_1(objectPoints_mat.nativeObj, imagePoints_mat.nativeObj, imageSize.width, imageSize.height, iFixedPoint, cameraMatrix.nativeObj, distCoeffs.nativeObj, rvecs_mat.nativeObj, tvecs_mat.nativeObj, newObjPoints.nativeObj, stdDeviationsIntrinsics.nativeObj, stdDeviationsExtrinsics.nativeObj, stdDeviationsObjPoints.nativeObj, perViewErrors.nativeObj, flags);
+        Converters.Mat_to_vector_Mat(rvecs_mat, rvecs);
+        rvecs_mat.release();
+        Converters.Mat_to_vector_Mat(tvecs_mat, tvecs);
+        tvecs_mat.release();
+        return retVal;
+    }
+
+    /**
+     * Finds the camera intrinsic and extrinsic parameters from several views of a calibration pattern.
+     *
+     * This function is an extension of calibrateCamera() with the method of releasing object which was
+     * proposed in CITE: strobl2011iccv. In many common cases with inaccurate, unmeasured, roughly planar
+     * targets (calibration plates), this method can dramatically improve the precision of the estimated
+     * camera parameters. Both the object-releasing method and standard method are supported by this
+     * function. Use the parameter <b>iFixedPoint</b> for method selection. In the internal implementation,
+     * calibrateCamera() is a wrapper for this function.
+     *
+     * @param objectPoints Vector of vectors of calibration pattern points in the calibration pattern
+     * coordinate space. See calibrateCamera() for details. If the method of releasing object to be used,
+     * the identical calibration board must be used in each view and it must be fully visible, and all
+     * objectPoints[i] must be the same and all points should be roughly close to a plane. <b>The calibration
+     * target has to be rigid, or at least static if the camera (rather than the calibration target) is
+     * shifted for grabbing images.</b>
+     * @param imagePoints Vector of vectors of the projections of calibration pattern points. See
+     * calibrateCamera() for details.
+     * @param imageSize Size of the image used only to initialize the intrinsic camera matrix.
+     * @param iFixedPoint The index of the 3D object point in objectPoints[0] to be fixed. It also acts as
+     * a switch for calibration method selection. If object-releasing method to be used, pass in the
+     * parameter in the range of [1, objectPoints[0].size()-2], otherwise a value out of this range will
+     * make standard calibration method selected. Usually the top-right corner point of the calibration
+     * board grid is recommended to be fixed when object-releasing method being utilized. According to
+     * \cite strobl2011iccv, two other points are also fixed. In this implementation, objectPoints[0].front
+     * and objectPoints[0].back.z are used. With object-releasing method, accurate rvecs, tvecs and
+     * newObjPoints are only possible if coordinates of these three fixed points are accurate enough.
+     * @param cameraMatrix Output 3x3 floating-point camera matrix. See calibrateCamera() for details.
+     * @param distCoeffs Output vector of distortion coefficients. See calibrateCamera() for details.
+     * @param rvecs Output vector of rotation vectors estimated for each pattern view. See calibrateCamera()
+     * for details.
+     * @param tvecs Output vector of translation vectors estimated for each pattern view.
+     * @param newObjPoints The updated output vector of calibration pattern points. The coordinates might
+     * be scaled based on three fixed points. The returned coordinates are accurate only if the above
+     * mentioned three fixed points are accurate. If not needed, noArray() can be passed in. This parameter
+     * is ignored with standard calibration method.
+     * @param stdDeviationsIntrinsics Output vector of standard deviations estimated for intrinsic parameters.
+     * See calibrateCamera() for details.
+     * @param stdDeviationsExtrinsics Output vector of standard deviations estimated for extrinsic parameters.
+     * See calibrateCamera() for details.
+     * @param stdDeviationsObjPoints Output vector of standard deviations estimated for refined coordinates
+     * of calibration pattern points. It has the same size and order as objectPoints[0] vector. This
+     * parameter is ignored with standard calibration method.
+     *  @param perViewErrors Output vector of the RMS re-projection error estimated for each pattern view.
+     * calibrateCamera() for details. If the method of releasing object is used, the calibration time may
+     * be much longer. CALIB_USE_QR or CALIB_USE_LU could be used for faster calibration with potentially
+     * less precise and less stable in some rare cases.
+     *
+     * @return the overall RMS re-projection error.
+     *
+     * The function estimates the intrinsic camera parameters and extrinsic parameters for each of the
+     * views. The algorithm is based on CITE: Zhang2000, CITE: BouguetMCT and CITE: strobl2011iccv. See
+     * calibrateCamera() for other detailed explanations.
+     * SEE:
+     *    calibrateCamera, findChessboardCorners, solvePnP, initCameraMatrix2D, stereoCalibrate, undistort
+     */
+    public static double calibrateCameraROExtended(List<Mat> objectPoints, List<Mat> imagePoints, Size imageSize, int iFixedPoint, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs, List<Mat> tvecs, Mat newObjPoints, Mat stdDeviationsIntrinsics, Mat stdDeviationsExtrinsics, Mat stdDeviationsObjPoints, Mat perViewErrors) {
+        Mat objectPoints_mat = Converters.vector_Mat_to_Mat(objectPoints);
+        Mat imagePoints_mat = Converters.vector_Mat_to_Mat(imagePoints);
+        Mat rvecs_mat = new Mat();
+        Mat tvecs_mat = new Mat();
+        double retVal = calibrateCameraROExtended_2(objectPoints_mat.nativeObj, imagePoints_mat.nativeObj, imageSize.width, imageSize.height, iFixedPoint, cameraMatrix.nativeObj, distCoeffs.nativeObj, rvecs_mat.nativeObj, tvecs_mat.nativeObj, newObjPoints.nativeObj, stdDeviationsIntrinsics.nativeObj, stdDeviationsExtrinsics.nativeObj, stdDeviationsObjPoints.nativeObj, perViewErrors.nativeObj);
+        Converters.Mat_to_vector_Mat(rvecs_mat, rvecs);
+        rvecs_mat.release();
+        Converters.Mat_to_vector_Mat(tvecs_mat, tvecs);
+        tvecs_mat.release();
+        return retVal;
+    }
+
+
+    //
+    // C++:  double cv::calibrateCameraRO(vector_Mat objectPoints, vector_Mat imagePoints, Size imageSize, int iFixedPoint, Mat& cameraMatrix, Mat& distCoeffs, vector_Mat& rvecs, vector_Mat& tvecs, Mat& newObjPoints, int flags = 0, TermCriteria criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON))
+    //
+
+    public static double calibrateCameraRO(List<Mat> objectPoints, List<Mat> imagePoints, Size imageSize, int iFixedPoint, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs, List<Mat> tvecs, Mat newObjPoints, int flags, TermCriteria criteria) {
+        Mat objectPoints_mat = Converters.vector_Mat_to_Mat(objectPoints);
+        Mat imagePoints_mat = Converters.vector_Mat_to_Mat(imagePoints);
+        Mat rvecs_mat = new Mat();
+        Mat tvecs_mat = new Mat();
+        double retVal = calibrateCameraRO_0(objectPoints_mat.nativeObj, imagePoints_mat.nativeObj, imageSize.width, imageSize.height, iFixedPoint, cameraMatrix.nativeObj, distCoeffs.nativeObj, rvecs_mat.nativeObj, tvecs_mat.nativeObj, newObjPoints.nativeObj, flags, criteria.type, criteria.maxCount, criteria.epsilon);
+        Converters.Mat_to_vector_Mat(rvecs_mat, rvecs);
+        rvecs_mat.release();
+        Converters.Mat_to_vector_Mat(tvecs_mat, tvecs);
+        tvecs_mat.release();
+        return retVal;
+    }
+
+    public static double calibrateCameraRO(List<Mat> objectPoints, List<Mat> imagePoints, Size imageSize, int iFixedPoint, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs, List<Mat> tvecs, Mat newObjPoints, int flags) {
+        Mat objectPoints_mat = Converters.vector_Mat_to_Mat(objectPoints);
+        Mat imagePoints_mat = Converters.vector_Mat_to_Mat(imagePoints);
+        Mat rvecs_mat = new Mat();
+        Mat tvecs_mat = new Mat();
+        double retVal = calibrateCameraRO_1(objectPoints_mat.nativeObj, imagePoints_mat.nativeObj, imageSize.width, imageSize.height, iFixedPoint, cameraMatrix.nativeObj, distCoeffs.nativeObj, rvecs_mat.nativeObj, tvecs_mat.nativeObj, newObjPoints.nativeObj, flags);
+        Converters.Mat_to_vector_Mat(rvecs_mat, rvecs);
+        rvecs_mat.release();
+        Converters.Mat_to_vector_Mat(tvecs_mat, tvecs);
+        tvecs_mat.release();
+        return retVal;
+    }
+
+    public static double calibrateCameraRO(List<Mat> objectPoints, List<Mat> imagePoints, Size imageSize, int iFixedPoint, Mat cameraMatrix, Mat distCoeffs, List<Mat> rvecs, List<Mat> tvecs, Mat newObjPoints) {
+        Mat objectPoints_mat = Converters.vector_Mat_to_Mat(objectPoints);
+        Mat imagePoints_mat = Converters.vector_Mat_to_Mat(imagePoints);
+        Mat rvecs_mat = new Mat();
+        Mat tvecs_mat = new Mat();
+        double retVal = calibrateCameraRO_2(objectPoints_mat.nativeObj, imagePoints_mat.nativeObj, imageSize.width, imageSize.height, iFixedPoint, cameraMatrix.nativeObj, distCoeffs.nativeObj, rvecs_mat.nativeObj, tvecs_mat.nativeObj, newObjPoints.nativeObj);
         Converters.Mat_to_vector_Mat(rvecs_mat, rvecs);
         rvecs_mat.release();
         Converters.Mat_to_vector_Mat(tvecs_mat, tvecs);
@@ -8743,6 +9137,78 @@ public class Calib3d {
 
 
     //
+    // C++:  void cv::initUndistortRectifyMap(Mat cameraMatrix, Mat distCoeffs, Mat R, Mat newCameraMatrix, Size size, int m1type, Mat& map1, Mat& map2)
+    //
+
+    /**
+     * Computes the undistortion and rectification transformation map.
+     *
+     * The function computes the joint undistortion and rectification transformation and represents the
+     * result in the form of maps for remap. The undistorted image looks like original, as if it is
+     * captured with a camera using the camera matrix =newCameraMatrix and zero distortion. In case of a
+     * monocular camera, newCameraMatrix is usually equal to cameraMatrix, or it can be computed by
+     * #getOptimalNewCameraMatrix for a better control over scaling. In case of a stereo camera,
+     * newCameraMatrix is normally set to P1 or P2 computed by #stereoRectify .
+     *
+     * Also, this new camera is oriented differently in the coordinate space, according to R. That, for
+     * example, helps to align two heads of a stereo camera so that the epipolar lines on both images
+     * become horizontal and have the same y- coordinate (in case of a horizontally aligned stereo camera).
+     *
+     * The function actually builds the maps for the inverse mapping algorithm that is used by remap. That
+     * is, for each pixel \((u, v)\) in the destination (corrected and rectified) image, the function
+     * computes the corresponding coordinates in the source image (that is, in the original image from
+     * camera). The following process is applied:
+     * \(
+     * \begin{array}{l}
+     * x  \leftarrow (u - {c'}_x)/{f'}_x  \\
+     * y  \leftarrow (v - {c'}_y)/{f'}_y  \\
+     * {[X\,Y\,W]} ^T  \leftarrow R^{-1}*[x \, y \, 1]^T  \\
+     * x'  \leftarrow X/W  \\
+     * y'  \leftarrow Y/W  \\
+     * r^2  \leftarrow x'^2 + y'^2 \\
+     * x''  \leftarrow x' \frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k_6 r^6}
+     * + 2p_1 x' y' + p_2(r^2 + 2 x'^2)  + s_1 r^2 + s_2 r^4\\
+     * y''  \leftarrow y' \frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k_6 r^6}
+     * + p_1 (r^2 + 2 y'^2) + 2 p_2 x' y' + s_3 r^2 + s_4 r^4 \\
+     * s\vecthree{x'''}{y'''}{1} =
+     * \vecthreethree{R_{33}(\tau_x, \tau_y)}{0}{-R_{13}((\tau_x, \tau_y)}
+     * {0}{R_{33}(\tau_x, \tau_y)}{-R_{23}(\tau_x, \tau_y)}
+     * {0}{0}{1} R(\tau_x, \tau_y) \vecthree{x''}{y''}{1}\\
+     * map_x(u,v)  \leftarrow x''' f_x + c_x  \\
+     * map_y(u,v)  \leftarrow y''' f_y + c_y
+     * \end{array}
+     * \)
+     * where \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\)
+     * are the distortion coefficients.
+     *
+     * In case of a stereo camera, this function is called twice: once for each camera head, after
+     * stereoRectify, which in its turn is called after #stereoCalibrate. But if the stereo camera
+     * was not calibrated, it is still possible to compute the rectification transformations directly from
+     * the fundamental matrix using #stereoRectifyUncalibrated. For each camera, the function computes
+     * homography H as the rectification transformation in a pixel domain, not a rotation matrix R in 3D
+     * space. R can be computed from H as
+     * \(\texttt{R} = \texttt{cameraMatrix} ^{-1} \cdot \texttt{H} \cdot \texttt{cameraMatrix}\)
+     * where cameraMatrix can be chosen arbitrarily.
+     *
+     * @param cameraMatrix Input camera matrix \(A=\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) .
+     * @param distCoeffs Input vector of distortion coefficients
+     * \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\)
+     * of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
+     * @param R Optional rectification transformation in the object space (3x3 matrix). R1 or R2 ,
+     * computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation
+     * is assumed. In cvInitUndistortMap R assumed to be an identity matrix.
+     * @param newCameraMatrix New camera matrix \(A'=\vecthreethree{f_x'}{0}{c_x'}{0}{f_y'}{c_y'}{0}{0}{1}\).
+     * @param size Undistorted image size.
+     * @param m1type Type of the first output map that can be CV_32FC1, CV_32FC2 or CV_16SC2, see #convertMaps
+     * @param map1 The first output map.
+     * @param map2 The second output map.
+     */
+    public static void initUndistortRectifyMap(Mat cameraMatrix, Mat distCoeffs, Mat R, Mat newCameraMatrix, Size size, int m1type, Mat map1, Mat map2) {
+        initUndistortRectifyMap_0(cameraMatrix.nativeObj, distCoeffs.nativeObj, R.nativeObj, newCameraMatrix.nativeObj, size.width, size.height, m1type, map1.nativeObj, map2.nativeObj);
+    }
+
+
+    //
     // C++:  void cv::matMulDeriv(Mat A, Mat B, Mat& dABdA, Mat& dABdB)
     //
 
@@ -9712,6 +10178,241 @@ public class Calib3d {
 
 
     //
+    // C++:  void cv::undistort(Mat src, Mat& dst, Mat cameraMatrix, Mat distCoeffs, Mat newCameraMatrix = Mat())
+    //
+
+    /**
+     * Transforms an image to compensate for lens distortion.
+     *
+     * The function transforms an image to compensate radial and tangential lens distortion.
+     *
+     * The function is simply a combination of #initUndistortRectifyMap (with unity R ) and #remap
+     * (with bilinear interpolation). See the former function for details of the transformation being
+     * performed.
+     *
+     * Those pixels in the destination image, for which there is no correspondent pixels in the source
+     * image, are filled with zeros (black color).
+     *
+     * A particular subset of the source image that will be visible in the corrected image can be regulated
+     * by newCameraMatrix. You can use #getOptimalNewCameraMatrix to compute the appropriate
+     * newCameraMatrix depending on your requirements.
+     *
+     * The camera matrix and the distortion parameters can be determined using #calibrateCamera. If
+     * the resolution of images is different from the resolution used at the calibration stage, \(f_x,
+     * f_y, c_x\) and \(c_y\) need to be scaled accordingly, while the distortion coefficients remain
+     * the same.
+     *
+     * @param src Input (distorted) image.
+     * @param dst Output (corrected) image that has the same size and type as src .
+     * @param cameraMatrix Input camera matrix \(A = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) .
+     * @param distCoeffs Input vector of distortion coefficients
+     * \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\)
+     * of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
+     * @param newCameraMatrix Camera matrix of the distorted image. By default, it is the same as
+     * cameraMatrix but you may additionally scale and shift the result by using a different matrix.
+     */
+    public static void undistort(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, Mat newCameraMatrix) {
+        undistort_0(src.nativeObj, dst.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj, newCameraMatrix.nativeObj);
+    }
+
+    /**
+     * Transforms an image to compensate for lens distortion.
+     *
+     * The function transforms an image to compensate radial and tangential lens distortion.
+     *
+     * The function is simply a combination of #initUndistortRectifyMap (with unity R ) and #remap
+     * (with bilinear interpolation). See the former function for details of the transformation being
+     * performed.
+     *
+     * Those pixels in the destination image, for which there is no correspondent pixels in the source
+     * image, are filled with zeros (black color).
+     *
+     * A particular subset of the source image that will be visible in the corrected image can be regulated
+     * by newCameraMatrix. You can use #getOptimalNewCameraMatrix to compute the appropriate
+     * newCameraMatrix depending on your requirements.
+     *
+     * The camera matrix and the distortion parameters can be determined using #calibrateCamera. If
+     * the resolution of images is different from the resolution used at the calibration stage, \(f_x,
+     * f_y, c_x\) and \(c_y\) need to be scaled accordingly, while the distortion coefficients remain
+     * the same.
+     *
+     * @param src Input (distorted) image.
+     * @param dst Output (corrected) image that has the same size and type as src .
+     * @param cameraMatrix Input camera matrix \(A = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) .
+     * @param distCoeffs Input vector of distortion coefficients
+     * \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\)
+     * of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
+     * cameraMatrix but you may additionally scale and shift the result by using a different matrix.
+     */
+    public static void undistort(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs) {
+        undistort_1(src.nativeObj, dst.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj);
+    }
+
+
+    //
+    // C++:  void cv::undistortPoints(Mat src, Mat& dst, Mat cameraMatrix, Mat distCoeffs, Mat R, Mat P, TermCriteria criteria)
+    //
+
+    /**
+     *
+     *     <b>Note:</b> Default version of #undistortPoints does 5 iterations to compute undistorted points.
+     * @param src automatically generated
+     * @param dst automatically generated
+     * @param cameraMatrix automatically generated
+     * @param distCoeffs automatically generated
+     * @param R automatically generated
+     * @param P automatically generated
+     * @param criteria automatically generated
+     */
+    public static void undistortPointsIter(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, Mat R, Mat P, TermCriteria criteria) {
+        undistortPointsIter_0(src.nativeObj, dst.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj, R.nativeObj, P.nativeObj, criteria.type, criteria.maxCount, criteria.epsilon);
+    }
+
+
+    //
+    // C++:  void cv::undistortPoints(vector_Point2f src, vector_Point2f& dst, Mat cameraMatrix, Mat distCoeffs, Mat R = Mat(), Mat P = Mat())
+    //
+
+    /**
+     * Computes the ideal point coordinates from the observed point coordinates.
+     *
+     * The function is similar to #undistort and #initUndistortRectifyMap but it operates on a
+     * sparse set of points instead of a raster image. Also the function performs a reverse transformation
+     * to projectPoints. In case of a 3D object, it does not reconstruct its 3D coordinates, but for a
+     * planar object, it does, up to a translation vector, if the proper R is specified.
+     *
+     * For each observed point coordinate \((u, v)\) the function computes:
+     * \(
+     * \begin{array}{l}
+     * x^{"}  \leftarrow (u - c_x)/f_x  \\
+     * y^{"}  \leftarrow (v - c_y)/f_y  \\
+     * (x',y') = undistort(x^{"},y^{"}, \texttt{distCoeffs}) \\
+     * {[X\,Y\,W]} ^T  \leftarrow R*[x' \, y' \, 1]^T  \\
+     * x  \leftarrow X/W  \\
+     * y  \leftarrow Y/W  \\
+     * \text{only performed if P is specified:} \\
+     * u'  \leftarrow x {f'}_x + {c'}_x  \\
+     * v'  \leftarrow y {f'}_y + {c'}_y
+     * \end{array}
+     * \)
+     *
+     * where *undistort* is an approximate iterative algorithm that estimates the normalized original
+     * point coordinates out of the normalized distorted point coordinates ("normalized" means that the
+     * coordinates do not depend on the camera matrix).
+     *
+     * The function can be used for both a stereo camera head or a monocular camera (when R is empty).
+     * @param src Observed point coordinates, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel (CV_32FC2 or CV_64FC2) (or
+     * vector&lt;Point2f&gt; ).
+     * @param dst Output ideal point coordinates (1xN/Nx1 2-channel or vector&lt;Point2f&gt; ) after undistortion and reverse perspective
+     * transformation. If matrix P is identity or omitted, dst will contain normalized point coordinates.
+     * @param cameraMatrix Camera matrix \(\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) .
+     * @param distCoeffs Input vector of distortion coefficients
+     * \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\)
+     * of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
+     * @param R Rectification transformation in the object space (3x3 matrix). R1 or R2 computed by
+     * #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used.
+     * @param P New camera matrix (3x3) or new projection matrix (3x4) \(\begin{bmatrix} {f'}_x &amp; 0 &amp; {c'}_x &amp; t_x \\ 0 &amp; {f'}_y &amp; {c'}_y &amp; t_y \\ 0 &amp; 0 &amp; 1 &amp; t_z \end{bmatrix}\). P1 or P2 computed by
+     * #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used.
+     */
+    public static void undistortPoints(MatOfPoint2f src, MatOfPoint2f dst, Mat cameraMatrix, Mat distCoeffs, Mat R, Mat P) {
+        Mat src_mat = src;
+        Mat dst_mat = dst;
+        undistortPoints_0(src_mat.nativeObj, dst_mat.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj, R.nativeObj, P.nativeObj);
+    }
+
+    /**
+     * Computes the ideal point coordinates from the observed point coordinates.
+     *
+     * The function is similar to #undistort and #initUndistortRectifyMap but it operates on a
+     * sparse set of points instead of a raster image. Also the function performs a reverse transformation
+     * to projectPoints. In case of a 3D object, it does not reconstruct its 3D coordinates, but for a
+     * planar object, it does, up to a translation vector, if the proper R is specified.
+     *
+     * For each observed point coordinate \((u, v)\) the function computes:
+     * \(
+     * \begin{array}{l}
+     * x^{"}  \leftarrow (u - c_x)/f_x  \\
+     * y^{"}  \leftarrow (v - c_y)/f_y  \\
+     * (x',y') = undistort(x^{"},y^{"}, \texttt{distCoeffs}) \\
+     * {[X\,Y\,W]} ^T  \leftarrow R*[x' \, y' \, 1]^T  \\
+     * x  \leftarrow X/W  \\
+     * y  \leftarrow Y/W  \\
+     * \text{only performed if P is specified:} \\
+     * u'  \leftarrow x {f'}_x + {c'}_x  \\
+     * v'  \leftarrow y {f'}_y + {c'}_y
+     * \end{array}
+     * \)
+     *
+     * where *undistort* is an approximate iterative algorithm that estimates the normalized original
+     * point coordinates out of the normalized distorted point coordinates ("normalized" means that the
+     * coordinates do not depend on the camera matrix).
+     *
+     * The function can be used for both a stereo camera head or a monocular camera (when R is empty).
+     * @param src Observed point coordinates, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel (CV_32FC2 or CV_64FC2) (or
+     * vector&lt;Point2f&gt; ).
+     * @param dst Output ideal point coordinates (1xN/Nx1 2-channel or vector&lt;Point2f&gt; ) after undistortion and reverse perspective
+     * transformation. If matrix P is identity or omitted, dst will contain normalized point coordinates.
+     * @param cameraMatrix Camera matrix \(\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) .
+     * @param distCoeffs Input vector of distortion coefficients
+     * \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\)
+     * of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
+     * @param R Rectification transformation in the object space (3x3 matrix). R1 or R2 computed by
+     * #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used.
+     * #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used.
+     */
+    public static void undistortPoints(MatOfPoint2f src, MatOfPoint2f dst, Mat cameraMatrix, Mat distCoeffs, Mat R) {
+        Mat src_mat = src;
+        Mat dst_mat = dst;
+        undistortPoints_1(src_mat.nativeObj, dst_mat.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj, R.nativeObj);
+    }
+
+    /**
+     * Computes the ideal point coordinates from the observed point coordinates.
+     *
+     * The function is similar to #undistort and #initUndistortRectifyMap but it operates on a
+     * sparse set of points instead of a raster image. Also the function performs a reverse transformation
+     * to projectPoints. In case of a 3D object, it does not reconstruct its 3D coordinates, but for a
+     * planar object, it does, up to a translation vector, if the proper R is specified.
+     *
+     * For each observed point coordinate \((u, v)\) the function computes:
+     * \(
+     * \begin{array}{l}
+     * x^{"}  \leftarrow (u - c_x)/f_x  \\
+     * y^{"}  \leftarrow (v - c_y)/f_y  \\
+     * (x',y') = undistort(x^{"},y^{"}, \texttt{distCoeffs}) \\
+     * {[X\,Y\,W]} ^T  \leftarrow R*[x' \, y' \, 1]^T  \\
+     * x  \leftarrow X/W  \\
+     * y  \leftarrow Y/W  \\
+     * \text{only performed if P is specified:} \\
+     * u'  \leftarrow x {f'}_x + {c'}_x  \\
+     * v'  \leftarrow y {f'}_y + {c'}_y
+     * \end{array}
+     * \)
+     *
+     * where *undistort* is an approximate iterative algorithm that estimates the normalized original
+     * point coordinates out of the normalized distorted point coordinates ("normalized" means that the
+     * coordinates do not depend on the camera matrix).
+     *
+     * The function can be used for both a stereo camera head or a monocular camera (when R is empty).
+     * @param src Observed point coordinates, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel (CV_32FC2 or CV_64FC2) (or
+     * vector&lt;Point2f&gt; ).
+     * @param dst Output ideal point coordinates (1xN/Nx1 2-channel or vector&lt;Point2f&gt; ) after undistortion and reverse perspective
+     * transformation. If matrix P is identity or omitted, dst will contain normalized point coordinates.
+     * @param cameraMatrix Camera matrix \(\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\) .
+     * @param distCoeffs Input vector of distortion coefficients
+     * \((k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\)
+     * of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
+     * #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used.
+     * #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used.
+     */
+    public static void undistortPoints(MatOfPoint2f src, MatOfPoint2f dst, Mat cameraMatrix, Mat distCoeffs) {
+        Mat src_mat = src;
+        Mat dst_mat = dst;
+        undistortPoints_2(src_mat.nativeObj, dst_mat.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj);
+    }
+
+
+    //
     // C++:  void cv::validateDisparity(Mat& disparity, Mat cost, int minDisparity, int numberOfDisparities, int disp12MaxDisp = 1)
     //
 
@@ -10247,6 +10948,11 @@ public class Calib3d {
     private static native long findHomography_4(long srcPoints_mat_nativeObj, long dstPoints_mat_nativeObj, int method);
     private static native long findHomography_5(long srcPoints_mat_nativeObj, long dstPoints_mat_nativeObj);
 
+    // C++:  Mat cv::getDefaultNewCameraMatrix(Mat cameraMatrix, Size imgsize = Size(), bool centerPrincipalPoint = false)
+    private static native long getDefaultNewCameraMatrix_0(long cameraMatrix_nativeObj, double imgsize_width, double imgsize_height, boolean centerPrincipalPoint);
+    private static native long getDefaultNewCameraMatrix_1(long cameraMatrix_nativeObj, double imgsize_width, double imgsize_height);
+    private static native long getDefaultNewCameraMatrix_2(long cameraMatrix_nativeObj);
+
     // C++:  Mat cv::getOptimalNewCameraMatrix(Mat cameraMatrix, Mat distCoeffs, Size imageSize, double alpha, Size newImgSize = Size(), Rect* validPixROI = 0, bool centerPrincipalPoint = false)
     private static native long getOptimalNewCameraMatrix_0(long cameraMatrix_nativeObj, long distCoeffs_nativeObj, double imageSize_width, double imageSize_height, double alpha, double newImgSize_width, double newImgSize_height, double[] validPixROI_out, boolean centerPrincipalPoint);
     private static native long getOptimalNewCameraMatrix_1(long cameraMatrix_nativeObj, long distCoeffs_nativeObj, double imageSize_width, double imageSize_height, double alpha, double newImgSize_width, double newImgSize_height, double[] validPixROI_out);
@@ -10266,12 +10972,19 @@ public class Calib3d {
     private static native double[] RQDecomp3x3_2(long src_nativeObj, long mtxR_nativeObj, long mtxQ_nativeObj, long Qx_nativeObj);
     private static native double[] RQDecomp3x3_3(long src_nativeObj, long mtxR_nativeObj, long mtxQ_nativeObj);
 
+    // C++:  bool cv::checkChessboard(Mat img, Size size)
+    private static native boolean checkChessboard_0(long img_nativeObj, double size_width, double size_height);
+
     // C++:  bool cv::find4QuadCornerSubpix(Mat img, Mat& corners, Size region_size)
     private static native boolean find4QuadCornerSubpix_0(long img_nativeObj, long corners_nativeObj, double region_size_width, double region_size_height);
 
     // C++:  bool cv::findChessboardCorners(Mat image, Size patternSize, vector_Point2f& corners, int flags = CALIB_CB_ADAPTIVE_THRESH + CALIB_CB_NORMALIZE_IMAGE)
     private static native boolean findChessboardCorners_0(long image_nativeObj, double patternSize_width, double patternSize_height, long corners_mat_nativeObj, int flags);
     private static native boolean findChessboardCorners_1(long image_nativeObj, double patternSize_width, double patternSize_height, long corners_mat_nativeObj);
+
+    // C++:  bool cv::findChessboardCornersSB(Mat image, Size patternSize, Mat& corners, int flags = 0)
+    private static native boolean findChessboardCornersSB_0(long image_nativeObj, double patternSize_width, double patternSize_height, long corners_nativeObj, int flags);
+    private static native boolean findChessboardCornersSB_1(long image_nativeObj, double patternSize_width, double patternSize_height, long corners_nativeObj);
 
     // C++:  bool cv::findCirclesGrid(Mat image, Size patternSize, Mat& centers, int flags = CALIB_CB_SYMMETRIC_GRID, Ptr_FeatureDetector blobDetector = SimpleBlobDetector::create())
     private static native boolean findCirclesGrid_0(long image_nativeObj, double patternSize_width, double patternSize_height, long centers_nativeObj, int flags);
@@ -10304,6 +11017,16 @@ public class Calib3d {
     private static native double calibrateCamera_0(long objectPoints_mat_nativeObj, long imagePoints_mat_nativeObj, double imageSize_width, double imageSize_height, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long rvecs_mat_nativeObj, long tvecs_mat_nativeObj, int flags, int criteria_type, int criteria_maxCount, double criteria_epsilon);
     private static native double calibrateCamera_1(long objectPoints_mat_nativeObj, long imagePoints_mat_nativeObj, double imageSize_width, double imageSize_height, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long rvecs_mat_nativeObj, long tvecs_mat_nativeObj, int flags);
     private static native double calibrateCamera_2(long objectPoints_mat_nativeObj, long imagePoints_mat_nativeObj, double imageSize_width, double imageSize_height, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long rvecs_mat_nativeObj, long tvecs_mat_nativeObj);
+
+    // C++:  double cv::calibrateCameraRO(vector_Mat objectPoints, vector_Mat imagePoints, Size imageSize, int iFixedPoint, Mat& cameraMatrix, Mat& distCoeffs, vector_Mat& rvecs, vector_Mat& tvecs, Mat& newObjPoints, Mat& stdDeviationsIntrinsics, Mat& stdDeviationsExtrinsics, Mat& stdDeviationsObjPoints, Mat& perViewErrors, int flags = 0, TermCriteria criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON))
+    private static native double calibrateCameraROExtended_0(long objectPoints_mat_nativeObj, long imagePoints_mat_nativeObj, double imageSize_width, double imageSize_height, int iFixedPoint, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long rvecs_mat_nativeObj, long tvecs_mat_nativeObj, long newObjPoints_nativeObj, long stdDeviationsIntrinsics_nativeObj, long stdDeviationsExtrinsics_nativeObj, long stdDeviationsObjPoints_nativeObj, long perViewErrors_nativeObj, int flags, int criteria_type, int criteria_maxCount, double criteria_epsilon);
+    private static native double calibrateCameraROExtended_1(long objectPoints_mat_nativeObj, long imagePoints_mat_nativeObj, double imageSize_width, double imageSize_height, int iFixedPoint, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long rvecs_mat_nativeObj, long tvecs_mat_nativeObj, long newObjPoints_nativeObj, long stdDeviationsIntrinsics_nativeObj, long stdDeviationsExtrinsics_nativeObj, long stdDeviationsObjPoints_nativeObj, long perViewErrors_nativeObj, int flags);
+    private static native double calibrateCameraROExtended_2(long objectPoints_mat_nativeObj, long imagePoints_mat_nativeObj, double imageSize_width, double imageSize_height, int iFixedPoint, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long rvecs_mat_nativeObj, long tvecs_mat_nativeObj, long newObjPoints_nativeObj, long stdDeviationsIntrinsics_nativeObj, long stdDeviationsExtrinsics_nativeObj, long stdDeviationsObjPoints_nativeObj, long perViewErrors_nativeObj);
+
+    // C++:  double cv::calibrateCameraRO(vector_Mat objectPoints, vector_Mat imagePoints, Size imageSize, int iFixedPoint, Mat& cameraMatrix, Mat& distCoeffs, vector_Mat& rvecs, vector_Mat& tvecs, Mat& newObjPoints, int flags = 0, TermCriteria criteria = TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON))
+    private static native double calibrateCameraRO_0(long objectPoints_mat_nativeObj, long imagePoints_mat_nativeObj, double imageSize_width, double imageSize_height, int iFixedPoint, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long rvecs_mat_nativeObj, long tvecs_mat_nativeObj, long newObjPoints_nativeObj, int flags, int criteria_type, int criteria_maxCount, double criteria_epsilon);
+    private static native double calibrateCameraRO_1(long objectPoints_mat_nativeObj, long imagePoints_mat_nativeObj, double imageSize_width, double imageSize_height, int iFixedPoint, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long rvecs_mat_nativeObj, long tvecs_mat_nativeObj, long newObjPoints_nativeObj, int flags);
+    private static native double calibrateCameraRO_2(long objectPoints_mat_nativeObj, long imagePoints_mat_nativeObj, double imageSize_width, double imageSize_height, int iFixedPoint, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long rvecs_mat_nativeObj, long tvecs_mat_nativeObj, long newObjPoints_nativeObj);
 
     // C++:  double cv::sampsonDistance(Mat pt1, Mat pt2, Mat F)
     private static native double sampsonDistance_0(long pt1_nativeObj, long pt2_nativeObj, long F_nativeObj);
@@ -10424,6 +11147,9 @@ public class Calib3d {
     private static native void filterSpeckles_0(long img_nativeObj, double newVal, int maxSpeckleSize, double maxDiff, long buf_nativeObj);
     private static native void filterSpeckles_1(long img_nativeObj, double newVal, int maxSpeckleSize, double maxDiff);
 
+    // C++:  void cv::initUndistortRectifyMap(Mat cameraMatrix, Mat distCoeffs, Mat R, Mat newCameraMatrix, Size size, int m1type, Mat& map1, Mat& map2)
+    private static native void initUndistortRectifyMap_0(long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long R_nativeObj, long newCameraMatrix_nativeObj, double size_width, double size_height, int m1type, long map1_nativeObj, long map2_nativeObj);
+
     // C++:  void cv::matMulDeriv(Mat A, Mat B, Mat& dABdA, Mat& dABdB)
     private static native void matMulDeriv_0(long A_nativeObj, long B_nativeObj, long dABdA_nativeObj, long dABdB_nativeObj);
 
@@ -10456,6 +11182,18 @@ public class Calib3d {
 
     // C++:  void cv::triangulatePoints(Mat projMatr1, Mat projMatr2, Mat projPoints1, Mat projPoints2, Mat& points4D)
     private static native void triangulatePoints_0(long projMatr1_nativeObj, long projMatr2_nativeObj, long projPoints1_nativeObj, long projPoints2_nativeObj, long points4D_nativeObj);
+
+    // C++:  void cv::undistort(Mat src, Mat& dst, Mat cameraMatrix, Mat distCoeffs, Mat newCameraMatrix = Mat())
+    private static native void undistort_0(long src_nativeObj, long dst_nativeObj, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long newCameraMatrix_nativeObj);
+    private static native void undistort_1(long src_nativeObj, long dst_nativeObj, long cameraMatrix_nativeObj, long distCoeffs_nativeObj);
+
+    // C++:  void cv::undistortPoints(Mat src, Mat& dst, Mat cameraMatrix, Mat distCoeffs, Mat R, Mat P, TermCriteria criteria)
+    private static native void undistortPointsIter_0(long src_nativeObj, long dst_nativeObj, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long R_nativeObj, long P_nativeObj, int criteria_type, int criteria_maxCount, double criteria_epsilon);
+
+    // C++:  void cv::undistortPoints(vector_Point2f src, vector_Point2f& dst, Mat cameraMatrix, Mat distCoeffs, Mat R = Mat(), Mat P = Mat())
+    private static native void undistortPoints_0(long src_mat_nativeObj, long dst_mat_nativeObj, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long R_nativeObj, long P_nativeObj);
+    private static native void undistortPoints_1(long src_mat_nativeObj, long dst_mat_nativeObj, long cameraMatrix_nativeObj, long distCoeffs_nativeObj, long R_nativeObj);
+    private static native void undistortPoints_2(long src_mat_nativeObj, long dst_mat_nativeObj, long cameraMatrix_nativeObj, long distCoeffs_nativeObj);
 
     // C++:  void cv::validateDisparity(Mat& disparity, Mat cost, int minDisparity, int numberOfDisparities, int disp12MaxDisp = 1)
     private static native void validateDisparity_0(long disparity_nativeObj, long cost_nativeObj, int minDisparity, int numberOfDisparities, int disp12MaxDisp);

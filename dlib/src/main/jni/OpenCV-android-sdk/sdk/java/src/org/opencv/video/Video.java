@@ -16,7 +16,6 @@ import org.opencv.core.TermCriteria;
 import org.opencv.utils.Converters;
 import org.opencv.video.BackgroundSubtractorKNN;
 import org.opencv.video.BackgroundSubtractorMOG2;
-import org.opencv.video.DualTVL1OpticalFlow;
 
 // C++: class Video
 
@@ -39,49 +38,21 @@ public class Video {
 
 
     //
-    // C++:  Mat cv::estimateRigidTransform(Mat src, Mat dst, bool fullAffine, int ransacMaxIters, double ransacGoodRatio, int ransacSize0)
-    //
-
-    public static Mat estimateRigidTransform(Mat src, Mat dst, boolean fullAffine, int ransacMaxIters, double ransacGoodRatio, int ransacSize0) {
-        return new Mat(estimateRigidTransform_0(src.nativeObj, dst.nativeObj, fullAffine, ransacMaxIters, ransacGoodRatio, ransacSize0));
-    }
-
-
-    //
-    // C++:  Mat cv::estimateRigidTransform(Mat src, Mat dst, bool fullAffine)
+    // C++:  Mat cv::readOpticalFlow(String path)
     //
 
     /**
-     * Computes an optimal affine transformation between two 2D point sets.
+     * Read a .flo file
      *
-     * @param src First input 2D point set stored in std::vector or Mat, or an image stored in Mat.
-     * @param dst Second input 2D point set of the same size and the same type as A, or another image.
-     * @param fullAffine If true, the function finds an optimal affine transformation with no additional
-     * restrictions (6 degrees of freedom). Otherwise, the class of transformations to choose from is
-     * limited to combinations of translation, rotation, and uniform scaling (4 degrees of freedom).
+     *  @param path Path to the file to be loaded
      *
-     * The function finds an optimal affine transform *[A|b]* (a 2 x 3 floating-point matrix) that
-     * approximates best the affine transformation between:
-     *
-     * Two point sets
-     * Two raster images. In this case, the function first finds some features in the src image and
-     *     finds the corresponding features in dst image. After that, the problem is reduced to the first
-     *     case.
-     * In case of point sets, the problem is formulated as follows: you need to find a 2x2 matrix *A* and
-     * 2x1 vector *b* so that:
-     *
-     * \([A^*|b^*] = arg  \min _{[A|b]}  \sum _i  \| \texttt{dst}[i] - A { \texttt{src}[i]}^T - b  \| ^2\)
-     * where src[i] and dst[i] are the i-th points in src and dst, respectively
-     * \([A|b]\) can be either arbitrary (when fullAffine=true ) or have a form of
-     * \(\begin{bmatrix} a_{11} &amp; a_{12} &amp; b_1  \\ -a_{12} &amp; a_{11} &amp; b_2  \end{bmatrix}\)
-     * when fullAffine=false.
-     *
-     * SEE:
-     * estimateAffine2D, estimateAffinePartial2D, getAffineTransform, getPerspectiveTransform, findHomography
+     *  The function readOpticalFlow loads a flow field from a file and returns it as a single matrix.
+     *  Resulting Mat has a type CV_32FC2 - floating-point, 2-channel. First channel corresponds to the
+     *  flow in the horizontal direction (u), second - vertical (v).
      * @return automatically generated
      */
-    public static Mat estimateRigidTransform(Mat src, Mat dst, boolean fullAffine) {
-        return new Mat(estimateRigidTransform_1(src.nativeObj, dst.nativeObj, fullAffine));
+    public static Mat readOpticalFlow(String path) {
+        return new Mat(readOpticalFlow_0(path));
     }
 
 
@@ -200,19 +171,6 @@ public class Video {
 
 
     //
-    // C++:  Ptr_DualTVL1OpticalFlow cv::createOptFlow_DualTVL1()
-    //
-
-    /**
-     * Creates instance of cv::DenseOpticalFlow
-     * @return automatically generated
-     */
-    public static DualTVL1OpticalFlow createOptFlow_DualTVL1() {
-        return DualTVL1OpticalFlow.__fromPtr__(createOptFlow_DualTVL1_0());
-    }
-
-
-    //
     // C++:  RotatedRect cv::CamShift(Mat probImage, Rect& window, TermCriteria criteria)
     //
 
@@ -245,6 +203,26 @@ public class Video {
         RotatedRect retVal = new RotatedRect(CamShift_0(probImage.nativeObj, window.x, window.y, window.width, window.height, window_out, criteria.type, criteria.maxCount, criteria.epsilon));
         if(window!=null){ window.x = (int)window_out[0]; window.y = (int)window_out[1]; window.width = (int)window_out[2]; window.height = (int)window_out[3]; } 
         return retVal;
+    }
+
+
+    //
+    // C++:  bool cv::writeOpticalFlow(String path, Mat flow)
+    //
+
+    /**
+     * Write a .flo to disk
+     *
+     *  @param path Path to the file to be written
+     *  @param flow Flow field to be stored
+     *
+     *  The function stores a flow field in a file, returns true on success, false otherwise.
+     *  The flow field must be a 2-channel, floating-point matrix (CV_32FC2). First channel corresponds
+     *  to the flow in the horizontal direction (u), second - vertical (v).
+     * @return automatically generated
+     */
+    public static boolean writeOpticalFlow(String path, Mat flow) {
+        return writeOpticalFlow_0(path, flow.nativeObj);
     }
 
 
@@ -975,11 +953,8 @@ public class Video {
 
 
 
-    // C++:  Mat cv::estimateRigidTransform(Mat src, Mat dst, bool fullAffine, int ransacMaxIters, double ransacGoodRatio, int ransacSize0)
-    private static native long estimateRigidTransform_0(long src_nativeObj, long dst_nativeObj, boolean fullAffine, int ransacMaxIters, double ransacGoodRatio, int ransacSize0);
-
-    // C++:  Mat cv::estimateRigidTransform(Mat src, Mat dst, bool fullAffine)
-    private static native long estimateRigidTransform_1(long src_nativeObj, long dst_nativeObj, boolean fullAffine);
+    // C++:  Mat cv::readOpticalFlow(String path)
+    private static native long readOpticalFlow_0(String path);
 
     // C++:  Ptr_BackgroundSubtractorKNN cv::createBackgroundSubtractorKNN(int history = 500, double dist2Threshold = 400.0, bool detectShadows = true)
     private static native long createBackgroundSubtractorKNN_0(int history, double dist2Threshold, boolean detectShadows);
@@ -993,11 +968,11 @@ public class Video {
     private static native long createBackgroundSubtractorMOG2_2(int history);
     private static native long createBackgroundSubtractorMOG2_3();
 
-    // C++:  Ptr_DualTVL1OpticalFlow cv::createOptFlow_DualTVL1()
-    private static native long createOptFlow_DualTVL1_0();
-
     // C++:  RotatedRect cv::CamShift(Mat probImage, Rect& window, TermCriteria criteria)
     private static native double[] CamShift_0(long probImage_nativeObj, int window_x, int window_y, int window_width, int window_height, double[] window_out, int criteria_type, int criteria_maxCount, double criteria_epsilon);
+
+    // C++:  bool cv::writeOpticalFlow(String path, Mat flow)
+    private static native boolean writeOpticalFlow_0(String path, long flow_nativeObj);
 
     // C++:  double cv::computeECC(Mat templateImage, Mat inputImage, Mat inputMask = Mat())
     private static native double computeECC_0(long templateImage_nativeObj, long inputImage_nativeObj, long inputMask_nativeObj);

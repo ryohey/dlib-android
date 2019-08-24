@@ -25,7 +25,7 @@ public class DescriptorMatcher extends Algorithm {
     // internal usage only
     public static DescriptorMatcher __fromPtr__(long addr) { return new DescriptorMatcher(addr); }
 
-    // C++: enum <unnamed>
+    // C++: enum MatcherType
     public static final int
             FLANNBASED = 1,
             BRUTEFORCE = 2,
@@ -64,6 +64,15 @@ public class DescriptorMatcher extends Algorithm {
 
 
     //
+    // C++: static Ptr_DescriptorMatcher cv::DescriptorMatcher::create(DescriptorMatcher_MatcherType matcherType)
+    //
+
+    public static DescriptorMatcher create(int matcherType) {
+        return DescriptorMatcher.__fromPtr__(create_0(matcherType));
+    }
+
+
+    //
     // C++: static Ptr_DescriptorMatcher cv::DescriptorMatcher::create(String descriptorMatcherType)
     //
 
@@ -93,16 +102,7 @@ public class DescriptorMatcher extends Algorithm {
      * @return automatically generated
      */
     public static DescriptorMatcher create(String descriptorMatcherType) {
-        return DescriptorMatcher.__fromPtr__(create_0(descriptorMatcherType));
-    }
-
-
-    //
-    // C++: static Ptr_DescriptorMatcher cv::DescriptorMatcher::create(int matcherType)
-    //
-
-    public static DescriptorMatcher create(int matcherType) {
-        return DescriptorMatcher.__fromPtr__(create_1(matcherType));
+        return DescriptorMatcher.__fromPtr__(create_1(descriptorMatcherType));
     }
 
 
@@ -606,11 +606,11 @@ public class DescriptorMatcher extends Algorithm {
     private static native long clone_0(long nativeObj, boolean emptyTrainData);
     private static native long clone_1(long nativeObj);
 
-    // C++: static Ptr_DescriptorMatcher cv::DescriptorMatcher::create(String descriptorMatcherType)
-    private static native long create_0(String descriptorMatcherType);
+    // C++: static Ptr_DescriptorMatcher cv::DescriptorMatcher::create(DescriptorMatcher_MatcherType matcherType)
+    private static native long create_0(int matcherType);
 
-    // C++: static Ptr_DescriptorMatcher cv::DescriptorMatcher::create(int matcherType)
-    private static native long create_1(int matcherType);
+    // C++: static Ptr_DescriptorMatcher cv::DescriptorMatcher::create(String descriptorMatcherType)
+    private static native long create_1(String descriptorMatcherType);
 
     // C++:  bool cv::DescriptorMatcher::empty()
     private static native boolean empty_0(long nativeObj);

@@ -145,10 +145,10 @@ public class VideoWriter {
      *        On Linux FFMPEG is used to write videos;
      *   </li>
      *   <li>
-     *        On Windows FFMPEG or VFW is used;
+     *        On Windows FFMPEG or MSWF or DSHOW is used;
      *   </li>
      *   <li>
-     *        On MacOSX QTKit is used.
+     *        On MacOSX AVFoundation is used.
      *   </li>
      * </ul>
      */

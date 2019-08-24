@@ -26,7 +26,8 @@ public class Dnn {
             DNN_BACKEND_DEFAULT = 0,
             DNN_BACKEND_HALIDE = 1,
             DNN_BACKEND_INFERENCE_ENGINE = 2,
-            DNN_BACKEND_OPENCV = 3;
+            DNN_BACKEND_OPENCV = 3,
+            DNN_BACKEND_VKCOM = 4;
 
 
     // C++: enum Target
@@ -35,7 +36,8 @@ public class Dnn {
             DNN_TARGET_OPENCL = 1,
             DNN_TARGET_OPENCL_FP16 = 2,
             DNN_TARGET_MYRIAD = 3,
-            DNN_TARGET_FPGA = 4;
+            DNN_TARGET_VULKAN = 4,
+            DNN_TARGET_FPGA = 5;
 
 
     //
