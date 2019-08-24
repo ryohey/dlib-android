@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.8.4)
 
+include_directories(miniglog)
+
 add_library(android_dlib SHARED
     dlib/dlib/threads/threads_kernel_shared.cpp
     dlib/dlib/entropy_decoder/entropy_decoder_kernel_2.cpp
@@ -14,4 +16,5 @@ add_library(android_dlib SHARED
 	jni_detections/jni_face_det.cpp
 	jni_detections/jni_imageutils.cpp
 	jni_detections/jni_pedestrian_det.cpp
+	miniglog/glog/logging.cc
 )
