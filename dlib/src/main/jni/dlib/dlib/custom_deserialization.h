@@ -1,3 +1,5 @@
+#ifndef CUSTOM_DESERIALIZATION_H
+#define CUSTOM_DESERIALIZATION_H
 
 #include "image_processing/shape_predictor.h"
 #include <stdio.h>
@@ -8,7 +10,7 @@ using namespace std;
 
 namespace dlib
 {
-    void deserializeMinified(shape_predictor &sp, std::string filepath) {
+    inline void deserializeMinified(shape_predictor &sp, std::string filepath) {
         // load the shape predictor from the packed file:
         auto file = std::fopen(filepath.c_str(), "rb");
 
@@ -112,3 +114,5 @@ namespace dlib
         fclose(file);
     }
 }
+
+#endif
