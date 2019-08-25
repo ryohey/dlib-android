@@ -16,6 +16,7 @@
 #include "../dlib/dlib/image_processing/render_face_detections.h"
 #include "../dlib/dlib/opencv/cv_image.h"
 #include "../dlib/dlib/image_loader/load_image.h"
+#include "../dlib/dlib/custom_deserialization.h"
 #include "../miniglog/glog/logging.h"
 #include <jni.h>
 #include <memory>
@@ -162,7 +163,7 @@ class DLibHOGFaceDetector : public DLibHOGDetector {
       : mLandMarkModel(landmarkmodel) {
     init();
     if (!mLandMarkModel.empty() && jniutils::fileExists(mLandMarkModel)) {
-      dlib::deserialize(mLandMarkModel) >> msp;
+      dlib::deserializeMinified(msp, mLandMarkModel);
       LOG(INFO) << "Load landmarkmodel from " << mLandMarkModel;
     }
   }
