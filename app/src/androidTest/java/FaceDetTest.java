@@ -4,17 +4,21 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 import com.tzutalin.dlib.Constants;
 import com.tzutalin.dlib.FaceDet;
 import com.tzutalin.dlib.VisionDetRet;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -34,11 +38,20 @@ public class FaceDetTest {
 
     @Test
     public void testDetBitmapFaceLandmarkDect() {
-        Bitmap bitmap = BitmapFactory.decodeFile("/sdcard/test.png");
+        final Bitmap bitmap = BitmapFactory.decodeFile("/sdcard/test.png");
         assertThat(bitmap, notNullValue());
-        FaceDet faceDet = new FaceDet(Constants.getFaceShapeModelPath());
-        VisionDetRet ret = faceDet.detect(bitmap, new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
-        ArrayList<Point> landmarks = ret.getFaceLandmarks();
+        final FaceDet faceDet = new FaceDet(Constants.getFaceShapeModelPath());
+
+        long startTime = System.currentTimeMillis();
+        List<VisionDetRet> result = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10).parallelStream().map((i) -> {
+            return faceDet.detect(bitmap,
+                new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
+        }).collect(Collectors.toList());
+
+        long time = System.currentTimeMillis() - startTime;
+        Log.d("testDetBitmapFaceLandmarkDect", "take " + time + " ms");
+
+        ArrayList<Point> landmarks = result.get(0).getFaceLandmarks();
         Assert.assertTrue(landmarks.size() > 0);
         faceDet.release();
     }
