@@ -107,27 +107,8 @@ class JNI_VisionDetRet {
   JNI_VisionDetRet(JNIEnv* env) {
     jclass detRetClass = env->FindClass(CLASSNAME_VISION_DET_RET);
     CHECK_NOTNULL(detRetClass);
-    jID_label = env->GetFieldID(detRetClass, "mLabel", "Ljava/lang/String;");
-    jID_confidence = env->GetFieldID(detRetClass, "mConfidence", "F");
-    jID_left = env->GetFieldID(detRetClass, "mLeft", "I");
-    jID_top = env->GetFieldID(detRetClass, "mTop", "I");
-    jID_right = env->GetFieldID(detRetClass, "mRight", "I");
-    jID_bottom = env->GetFieldID(detRetClass, "mBottom", "I");
     jMethodID_addLandmark =
         env->GetMethodID(detRetClass, "addLandmark", "(II)Z");
-  }
-
-  void setLabel(JNIEnv* env, jobject& jDetRet, const std::string& label) {
-    jstring jstr = (jstring)(env->NewStringUTF(label.c_str()));
-    env->SetObjectField(jDetRet, jID_label, (jobject)jstr);
-  }
-
-  void setRect(JNIEnv* env, jobject& jDetRet, const int& left, const int& top,
-               const int& right, const int& bottom) {
-    env->SetIntField(jDetRet, jID_left, left);
-    env->SetIntField(jDetRet, jID_top, top);
-    env->SetIntField(jDetRet, jID_right, right);
-    env->SetIntField(jDetRet, jID_bottom, bottom);
   }
 
   void addLandmark(JNIEnv* env, jobject& jDetRet, const int& x, const int& y) {
@@ -147,12 +128,6 @@ class JNI_VisionDetRet {
   }
 
  private:
-  jfieldID jID_label;
-  jfieldID jID_confidence;
-  jfieldID jID_left;
-  jfieldID jID_top;
-  jfieldID jID_right;
-  jfieldID jID_bottom;
   jmethodID jMethodID_addLandmark;
 };
 #endif  // JNI_PRIMITIVES_H
