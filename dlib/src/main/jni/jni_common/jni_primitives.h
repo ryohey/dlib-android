@@ -16,7 +16,6 @@
 #define CONSTSIG_VISION_DET_RET "()V"
 
 #define CLASSNAME_FACE_DET "com/tzutalin/dlib/FaceDet"
-#define CLASSNAME_PEDESTRIAN_DET "com/tzutalin/dlib/PedestrianDet"
 
 class JavaPeer {
  public:
@@ -120,11 +119,6 @@ class JNI_VisionDetRet {
     jmethodID mid =
         env->GetMethodID(detRetClass, "<init>", CONSTSIG_VISION_DET_RET);
     return env->NewObject(detRetClass, mid);
-  }
-
-  static jobjectArray createJObjectArray(JNIEnv* env, const int& size) {
-    jclass detRetClass = env->FindClass(CLASSNAME_VISION_DET_RET);
-    return (jobjectArray)env->NewObjectArray(size, detRetClass, NULL);
   }
 
  private:

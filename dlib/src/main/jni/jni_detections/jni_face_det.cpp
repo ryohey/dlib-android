@@ -87,48 +87,7 @@ extern "C" {
 #define DLIB_FACE_JNI_METHOD(METHOD_NAME) \
   Java_com_tzutalin_dlib_FaceDet_##METHOD_NAME
 
-void JNIEXPORT
-    DLIB_FACE_JNI_METHOD(jniNativeClassInit)(JNIEnv* env, jclass _this) {}
-
-jobjectArray getDetectResult(JNIEnv* env, DetectorPtr faceDetector,
-                             const int& size) {
-  LOG(INFO) << "getFaceRet";
-  jobjectArray jDetRetArray = JNI_VisionDetRet::createJObjectArray(env, size);
-  for (int i = 0; i < size; i++) {
-    jobject jDetRet = JNI_VisionDetRet::createJObject(env);
-    env->SetObjectArrayElement(jDetRetArray, i, jDetRet);
-    dlib::rectangle rect = faceDetector->getResult()[i];
-    g_pJNI_VisionDetRet->setRect(env, jDetRet, rect.left(), rect.top(),
-                                 rect.right(), rect.bottom());
-    g_pJNI_VisionDetRet->setLabel(env, jDetRet, "face");
-    std::unordered_map<int, dlib::full_object_detection>& faceShapeMap =
-        faceDetector->getFaceShapeMap();
-    if (faceShapeMap.find(i) != faceShapeMap.end()) {
-      dlib::full_object_detection shape = faceShapeMap[i];
-      for (unsigned long j = 0; j < shape.num_parts(); j++) {
-        int x = shape.part(j).x();
-        int y = shape.part(j).y();
-        // Call addLandmark
-        g_pJNI_VisionDetRet->addLandmark(env, jDetRet, x, y);
-      }
-    }
-  }
-  return jDetRetArray;
-}
-
-JNIEXPORT jobjectArray JNICALL
-    DLIB_FACE_JNI_METHOD(jniDetect)(JNIEnv* env, jobject thiz,
-                                    jstring imgPath) {
-  LOG(INFO) << "jniFaceDet";
-  const char* img_path = env->GetStringUTFChars(imgPath, 0);
-  DetectorPtr detPtr = getDetectorPtr(env, thiz);
-  int size = detPtr->det(std::string(img_path));
-  env->ReleaseStringUTFChars(imgPath, img_path);
-  LOG(INFO) << "det face size: " << size;
-  return getDetectResult(env, detPtr, size);
-}
-
-JNIEXPORT jobjectArray JNICALL
+JNIEXPORT jobject JNICALL
     DLIB_FACE_JNI_METHOD(jniBitmapDetect)(JNIEnv* env, jobject thiz,
                                           jobject bitmap) {
   LOG(INFO) << "jniBitmapFaceDet";
@@ -136,15 +95,17 @@ JNIEXPORT jobjectArray JNICALL
   cv::Mat bgrMat;
   jniutils::ConvertBitmapToRGBAMat(env, bitmap, rgbaMat, true);
   cv::cvtColor(rgbaMat, bgrMat, cv::COLOR_RGBA2BGR);
-  DetectorPtr detPtr = getDetectorPtr(env, thiz);
-  jint size = detPtr->det(bgrMat);
-#if 0
-  cv::Mat rgbMat;
-  cv::cvtColor(bgrMat, rgbMat, cv::COLOR_BGR2RGB);
-  cv::imwrite("/sdcard/ret.jpg", rgbaMat);
-#endif
-  LOG(INFO) << "det face size: " << size;
-  return getDetectResult(env, detPtr, size);
+  auto detPtr = getDetectorPtr(env, thiz);
+  auto shape = detPtr->det(bgrMat);
+
+  auto jDetRet = JNI_VisionDetRet::createJObject(env);
+  for (auto j = 0; j < shape.num_parts(); j++) {
+    int x = shape.part(j).x();
+    int y = shape.part(j).y();
+    // Call addLandmark
+    g_pJNI_VisionDetRet->addLandmark(env, jDetRet, x, y);
+  }
+  return jDetRet;
 }
 
 jint JNIEXPORT JNICALL DLIB_FACE_JNI_METHOD(jniInit)(JNIEnv* env, jobject thiz,
