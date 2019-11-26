@@ -1,6 +1,7 @@
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
 import com.tzutalin.dlib.Constants;
@@ -33,10 +34,10 @@ public class FaceDetTest {
 
     @Test
     public void testDetBitmapFaceLandmarkDect() {
-        Bitmap bitmap = BitmapFactory.decodeFile("/sdcard/test.jpg");
+        Bitmap bitmap = BitmapFactory.decodeFile("/sdcard/test.png");
         assertThat(bitmap, notNullValue());
         FaceDet faceDet = new FaceDet(Constants.getFaceShapeModelPath());
-        VisionDetRet ret = faceDet.detect(bitmap);
+        VisionDetRet ret = faceDet.detect(bitmap, new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
         ArrayList<Point> landmarks = ret.getFaceLandmarks();
         Assert.assertTrue(landmarks.size() > 0);
         faceDet.release();

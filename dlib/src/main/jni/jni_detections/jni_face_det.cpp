@@ -89,14 +89,16 @@ extern "C" {
 
 JNIEXPORT jobject JNICALL
     DLIB_FACE_JNI_METHOD(jniBitmapDetect)(JNIEnv* env, jobject thiz,
-                                          jobject bitmap) {
+                                          jobject bitmap,
+                                          int left, int top, int right, int bottom) {
   LOG(INFO) << "jniBitmapFaceDet";
   cv::Mat rgbaMat;
   cv::Mat bgrMat;
   jniutils::ConvertBitmapToRGBAMat(env, bitmap, rgbaMat, true);
   cv::cvtColor(rgbaMat, bgrMat, cv::COLOR_RGBA2BGR);
+  auto rect = dlib::rectangle(left, top, right, bottom);
   auto detPtr = getDetectorPtr(env, thiz);
-  auto shape = detPtr->det(bgrMat);
+  auto shape = detPtr->det(bgrMat, rect);
 
   auto jDetRet = JNI_VisionDetRet::createJObject(env);
   for (auto j = 0; j < shape.num_parts(); j++) {

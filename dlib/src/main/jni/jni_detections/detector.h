@@ -51,15 +51,13 @@ class DLibHOGFaceDetector {
     }
   }
 
-  virtual inline dlib::full_object_detection det(const cv::Mat& image) {
+  virtual inline dlib::full_object_detection det(const cv::Mat& image, dlib::rectangle rect) {
       LOG(INFO) << "com_tzutalin_dlib_PeopleDet go to detLandmark(mat)";
       if (image.channels() == 1) {
           cv::cvtColor(image, image, cv::ColorConversionCodes::COLOR_GRAY2BGR);
       }
 
       CHECK(image.channels() == 3);
-
-      dlib::rectangle rect;
 
       dlib::cv_image<dlib::bgr_pixel> img(image);
       dlib::full_object_detection shape = msp(img, rect);

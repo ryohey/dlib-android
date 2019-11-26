@@ -1,6 +1,7 @@
 package com.tzutalin.dlib;
 
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,8 +42,8 @@ public class FaceDet {
 
     @Nullable
     @WorkerThread
-    public VisionDetRet detect(@NonNull Bitmap bitmap) {
-        return jniBitmapDetect(bitmap);
+    public VisionDetRet detect(@NonNull Bitmap bitmap, Rect rect) {
+        return jniBitmapDetect(bitmap, rect.left, rect.top, rect.right, rect.bottom);
     }
 
     @Override
@@ -62,5 +63,5 @@ public class FaceDet {
     private synchronized native int jniDeInit();
 
     @Keep
-    private synchronized native VisionDetRet jniBitmapDetect(Bitmap bitmap);
+    private synchronized native VisionDetRet jniBitmapDetect(Bitmap bitmap, int left, int top, int right, int bottom);
 }
