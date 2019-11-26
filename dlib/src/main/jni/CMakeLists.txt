@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 2.8.4)
 
+set(CMAKE_C_FLAGS "-mfpu=neon -D__NEON__ ${CMAKE_C_FLAGS}")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     miniglog
