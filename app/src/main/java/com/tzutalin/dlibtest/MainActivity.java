@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "Image path: " + imgPath);
         List<Card> cardrets = new ArrayList<>();
-        List<VisionDetRet> faceList = mFaceDet.detect(imgPath);
+        List<VisionDetRet> faceList = new ArrayList<>();
         if (faceList.size() > 0) {
             Card card = new Card.Builder(MainActivity.this)
                     .withProvider(BigImageCardProvider.class)
@@ -269,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
 
     @UiThread
     protected void showDiaglog() {
-        mDialog = ProgressDialog.show(MainActivity.this, "Wait", "Face detection", true);
+        mDialog = ProgressDialog.show(MainActivity.this, "Wait", "Person and face detection", true);
     }
 
     @UiThread
@@ -318,10 +318,6 @@ public class MainActivity extends AppCompatActivity {
         // Loop result list
         for (VisionDetRet ret : results) {
             Rect bounds = new Rect();
-            bounds.left = (int) (ret.getLeft() * resizeRatio);
-            bounds.top = (int) (ret.getTop() * resizeRatio);
-            bounds.right = (int) (ret.getRight() * resizeRatio);
-            bounds.bottom = (int) (ret.getBottom() * resizeRatio);
             canvas.drawRect(bounds, paint);
             // Get landmark
             ArrayList<Point> landmarks = ret.getFaceLandmarks();

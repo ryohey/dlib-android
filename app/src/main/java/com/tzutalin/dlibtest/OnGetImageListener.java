@@ -226,9 +226,9 @@ public class OnGetImageListener implements OnImageAvailableListener {
                         }
 
                         long startTime = System.currentTimeMillis();
-                        List<VisionDetRet> results;
+                        List<VisionDetRet> results = new ArrayList<>();
                         synchronized (OnGetImageListener.this) {
-                            results = mFaceDet.detect(mCroppedBitmap);
+                            results.add(mFaceDet.detect(mCroppedBitmap));
                         }
                         long endTime = System.currentTimeMillis();
                         mTransparentTitleView.setText("Time cost: " + String.valueOf((endTime - startTime) / 1000f) + " sec");
@@ -237,10 +237,6 @@ public class OnGetImageListener implements OnImageAvailableListener {
                             for (final VisionDetRet ret : results) {
                                 float resizeRatio = 1.0f;
                                 Rect bounds = new Rect();
-                                bounds.left = (int) (ret.getLeft() * resizeRatio);
-                                bounds.top = (int) (ret.getTop() * resizeRatio);
-                                bounds.right = (int) (ret.getRight() * resizeRatio);
-                                bounds.bottom = (int) (ret.getBottom() * resizeRatio);
                                 Canvas canvas = new Canvas(mCroppedBitmap);
                                 canvas.drawRect(bounds, mFaceLandmardkPaint);
 
