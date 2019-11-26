@@ -36,7 +36,6 @@ import com.dexafree.materialList.card.provider.BigImageCardProvider;
 import com.dexafree.materialList.view.MaterialListView;
 import com.tzutalin.dlib.Constants;
 import com.tzutalin.dlib.FaceDet;
-import com.tzutalin.dlib.PedestrianDet;
 import com.tzutalin.dlib.VisionDetRet;
 
 import org.androidannotations.annotations.AfterViews;
@@ -78,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
     protected Toolbar mToolbar;
 
     FaceDet mFaceDet;
-    PedestrianDet mPersonDet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -234,9 +232,6 @@ public class MainActivity extends AppCompatActivity {
             FileUtils.copyFileFromRawToOthers(getApplicationContext(), R.raw.shape_predictor_68_face_landmarks, targetPath);
         }
         // Init
-        if (mPersonDet == null) {
-            mPersonDet = new PedestrianDet();
-        }
         if (mFaceDet == null) {
             mFaceDet = new FaceDet(Constants.getFaceShapeModelPath());
         }
@@ -261,24 +256,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        List<VisionDetRet> personList = mPersonDet.detect(imgPath);
-        if (personList.size() > 0) {
-            Card card = new Card.Builder(MainActivity.this)
-                    .withProvider(BigImageCardProvider.class)
-                    .setDrawable(drawRect(imgPath, personList, Color.BLUE))
-                    .setTitle("Person det")
-                    .endConfig()
-                    .build();
-            cardrets.add(card);
-        } else {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(getApplicationContext(), "No person", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
         addCardListView(cardrets);
         dismissDialog();
     }
@@ -292,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
 
     @UiThread
     protected void showDiaglog() {
-        mDialog = ProgressDialog.show(MainActivity.this, "Wait", "Person and face detection", true);
+        mDialog = ProgressDialog.show(MainActivity.this, "Wait", "Face detection", true);
     }
 
     @UiThread

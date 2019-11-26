@@ -19,7 +19,6 @@ add_library(android_dlib SHARED
     jni_common/yuv2rgb.cpp
     jni_detections/jni_face_det.cpp
     jni_detections/jni_imageutils.cpp
-    jni_detections/jni_pedestrian_det.cpp
     miniglog/glog/logging.cc
 )
 
